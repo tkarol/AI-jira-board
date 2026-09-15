@@ -20,11 +20,8 @@
         </nav>
       </div>
       <div class="topbar-right">
-        <div class="filters" id="filters">
-          <button class="chip active" data-filter="all">All</button>
-          <button class="chip" data-filter="business">Business</button>
-          <button class="chip" data-filter="personal">Personal</button>
-        </div>
+        <!-- filter chips are built from CATEGORIES in app.js -->
+        <div class="filters" id="filters"></div>
         <button class="btn primary" id="quick-add-btn">+ Add todo</button>
       </div>
     </header>
@@ -38,10 +35,8 @@
         autocomplete="off"
         required
       />
-      <select id="qa-category">
-        <option value="personal">Personal</option>
-        <option value="business">Business</option>
-      </select>
+      <!-- options built from CATEGORIES in app.js -->
+      <select id="qa-category"></select>
       <select id="qa-priority">
         <option value="low">Low</option>
         <option value="medium" selected>Medium</option>
@@ -68,10 +63,7 @@
         <div class="modal-row">
           <label class="field">
             <span class="field-label">Category</span>
-            <select id="edit-category">
-              <option value="personal">Personal</option>
-              <option value="business">Business</option>
-            </select>
+            <select id="edit-category"></select>
           </label>
           <label class="field">
             <span class="field-label">Priority</span>

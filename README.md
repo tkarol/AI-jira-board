@@ -177,7 +177,7 @@ publish, or we automate it.
       "title": "Call the bank",
       "description": "Ask about the wire transfer",
       "column": "todo",           // must match a column id
-      "category": "business",     // "business" | "personal"
+      "category": "birdie_bus",   // "birdie_bus" | "booz_allen" | "personal"
       "priority": "high",         // "low" | "medium" | "high"
       "order": 0,                 // position within its column
       "createdAt": "2026-09-15T00:00:00.000Z",

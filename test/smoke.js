@@ -32,10 +32,10 @@ function makeBoard() {
 
 // create
 let board = makeBoard();
-const t = domain.createTask(board, { title: '  Hello  ', category: 'business', priority: 'high' });
+const t = domain.createTask(board, { title: '  Hello  ', category: 'birdie_bus', priority: 'high' });
 assert.strictEqual(t.title, 'Hello', 'title trimmed');
 assert.strictEqual(t.column, 'todo', 'defaults to first column');
-assert.strictEqual(t.category, 'business');
+assert.strictEqual(t.category, 'birdie_bus');
 assert.strictEqual(board.tasks.length, 1);
 assert.ok(/^t_[0-9a-f]{12}$/.test(t.id), 'id format');
 

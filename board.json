@@ -23,10 +23,10 @@
     },
     {
       "id": "t_sample_business",
-      "title": "Example: a business task",
-      "description": "Tag cards as business or personal so you can filter them. Set a priority to sort what matters.",
+      "title": "Example: a Birdie Bus task",
+      "description": "Tag cards by category (Birdie Bus, Booz Allen, Personal) so you can filter them. Set a priority to sort what matters.",
       "column": "backlog",
-      "category": "business",
+      "category": "birdie_bus",
       "priority": "high",
       "order": 0,
       "createdAt": "2026-09-15T00:00:00.000Z",

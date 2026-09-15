@@ -41,7 +41,7 @@ the `board-data` branch** via the GitHub API. So:
 | `title`       | string | Required, non-empty.                                        |
 | `description` | string | May be empty `""`.                                          |
 | `column`      | string | Must equal one of the `columns[].id` values.               |
-| `category`    | string | Exactly `"business"` or `"personal"`.                       |
+| `category`    | string | One of `"birdie_bus"`, `"booz_allen"`, `"personal"` (labels: Birdie Bus, Booz Allen, Personal). |
 | `priority`    | string | Exactly `"low"`, `"medium"`, or `"high"`.                   |
 | `order`       | number | Position within its column; lower = higher up. 0-based.     |
 | `createdAt`   | string | ISO 8601 timestamp. Set once, never change it.             |

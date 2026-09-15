@@ -2,12 +2,33 @@
 
 // --- state ------------------------------------------------------------------
 
+// Category ids must match VALID_CATEGORIES in lib/board.js. Labels are display-only.
+const CATEGORIES = [
+  { id: 'birdie_bus', label: 'Birdie Bus' },
+  { id: 'booz_allen', label: 'Booz Allen' },
+  { id: 'personal', label: 'Personal' },
+];
+const DEFAULT_CATEGORY = 'personal';
+const categoryLabel = (id) => (CATEGORIES.find((c) => c.id === id) || { label: id }).label;
+
 let board = { meta: {}, columns: [], tasks: [] };
 let activeFilter = 'all';
 let editingId = null;
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+// Build the filter chips and the category dropdowns from CATEGORIES.
+function populateCategoryUI() {
+  $('#filters').innerHTML =
+    `<button class="chip active" data-filter="all">All</button>` +
+    CATEGORIES.map((c) => `<button class="chip" data-filter="${c.id}">${c.label}</button>`).join('');
+
+  const options = CATEGORIES.map((c) => `<option value="${c.id}">${c.label}</option>`).join('');
+  $('#qa-category').innerHTML = options;
+  $('#qa-category').value = DEFAULT_CATEGORY;
+  $('#edit-category').innerHTML = options;
+}
 
 // --- API --------------------------------------------------------------------
 
@@ -84,7 +105,7 @@ function renderCard(task) {
   el.innerHTML = `
     <div class="card-title">${escapeHtml(task.title)}</div>
     <div class="card-meta">
-      <span class="tag ${task.category}">${task.category}</span>
+      <span class="tag cat-${task.category}">${escapeHtml(categoryLabel(task.category))}</span>
       <span class="tag priority-${task.priority}">${task.priority}</span>
       ${hasDesc ? '<span class="card-desc-indicator" title="Has description">☰</span>' : ''}
     </div>`;
@@ -286,6 +307,7 @@ function escapeHtml(str) {
 
 // --- boot -------------------------------------------------------------------
 
+populateCategoryUI();
 loadBoard().catch((err) => {
   document.body.innerHTML = `<p style="padding:24px">Could not load board: ${escapeHtml(
     err.message

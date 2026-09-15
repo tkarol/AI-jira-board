@@ -14,6 +14,7 @@
   --medium: #b38600;
   --low: #4c9f70;
   --business: #6554c0;
+  --booz: #0055cc;
   --personal: #0c8f6e;
   --radius: 8px;
 }
@@ -28,6 +29,7 @@
     --border: #2c333a;
     --primary: #579dff;
     --primary-hover: #85b8ff;
+    --booz: #6ea8ff;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
   }
@@ -262,11 +264,15 @@ body {
   border-radius: 4px;
 }
 
-.tag.business {
+.tag.cat-birdie_bus {
   background: rgba(101, 84, 192, 0.15);
   color: var(--business);
 }
-.tag.personal {
+.tag.cat-booz_allen {
+  background: rgba(0, 85, 204, 0.15);
+  color: var(--booz);
+}
+.tag.cat-personal {
   background: rgba(12, 143, 110, 0.15);
   color: var(--personal);
 }
