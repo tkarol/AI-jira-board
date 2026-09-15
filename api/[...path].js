@@ -54,8 +54,26 @@ async function dispatch(seg, method, body) {
   return { status: 404, json: { error: 'unknown endpoint' } };
 }
 
+// Work out the path segments after /api/. Prefer the catch-all query param when
+// Vercel provides it, but fall back to parsing req.url (which is reliable) —
+// the query param is empty in some Vercel runtimes, which broke routing.
+function segmentsFrom(req) {
+  let seg = []
+    .concat((req.query && req.query.path) || [])
+    .filter((s) => typeof s === 'string' && s.length);
+  if (seg.length) return seg;
+  try {
+    const pathname = decodeURIComponent((req.url || '').split('?')[0]);
+    seg = pathname.split('/').filter(Boolean);
+    if (seg[0] === 'api') seg = seg.slice(1);
+  } catch {
+    seg = [];
+  }
+  return seg;
+}
+
 module.exports = async (req, res) => {
-  const seg = [].concat(req.query.path || []);
+  const seg = segmentsFrom(req);
   const method = req.method;
   const body = method === 'POST' || method === 'PATCH' || method === 'PUT' ? readBody(req) : {};
   try {
