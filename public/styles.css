@@ -37,6 +37,12 @@
   box-sizing: border-box;
 }
 
+/* The hidden attribute must beat the display rules on modals/quick-add/tabs,
+   otherwise `el.hidden = true` can't actually hide a flex element. */
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   font-family:
