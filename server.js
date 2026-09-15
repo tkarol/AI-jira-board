@@ -138,6 +138,19 @@ async function route(req, res, urlPath) {
     return planner.updateAccount(acctM[1], body);
   }
 
+  // --- content ideas (Studio) ---
+  if (req.method === 'POST' && urlPath === '/api/ideas') return planner.createIdea(body);
+
+  const ideaActionM = urlPath.match(/^\/api\/ideas\/([^/]+)\/([^/]+)$/);
+  if (ideaActionM && req.method === 'POST') return planner.ideaAction(ideaActionM[1], ideaActionM[2]);
+
+  const ideaM = urlPath.match(/^\/api\/ideas\/([^/]+)$/);
+  if (ideaM) {
+    const id = ideaM[1];
+    if (req.method === 'PATCH' || req.method === 'PUT') return planner.updateIdea(id, body);
+    if (req.method === 'DELETE') return planner.deleteIdea(id);
+  }
+
   return { status: 404, json: { error: 'unknown endpoint' } };
 }
 

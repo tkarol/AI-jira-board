@@ -8,6 +8,10 @@ const SVG = {
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor" stroke="none"/></svg>',
   facebook:
     '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h2.2V6.1C15.8 6 14.9 6 14 6c-2 0-3.4 1.2-3.4 3.5V11H8v3h2.6v7h3.1v-7h2.3l.4-3h-2.7V9.8c0-.6.3-.8 1.3-.8Z"/></svg>',
+  tiktok:
+    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.35 2 1.6 3.5 3.5 3.8v2.5c-1.3.05-2.5-.35-3.5-1.05v5.95c0 3-2.2 5.4-5.15 5.4-2.95 0-5.35-2.4-5.35-5.35 0-2.9 2.45-5.1 5.3-4.85v2.55c-.4-.1-.85-.15-1.25-.05-1.15.2-1.95.95-1.95 2.3 0 1.35 1 2.4 2.3 2.4 1.35 0 2.4-1.05 2.4-2.95V3h3.7Z"/></svg>',
+  youtube:
+    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 7.2a2.7 2.7 0 0 0-1.9-1.9C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.5A2.7 2.7 0 0 0 2.5 7.2 28 28 0 0 0 2 12a28 28 0 0 0 .5 4.8 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.6.5 7.6.5s5.9 0 7.6-.5a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22 12a28 28 0 0 0-.5-4.8ZM10 15.2V8.8l5.2 3.2Z"/></svg>',
 };
 
 const PLATFORMS = {
@@ -15,9 +19,11 @@ const PLATFORMS = {
   twitter: { name: 'X', limit: 280, icon: 'x' }, // legacy id alias
   instagram: { name: 'Instagram', limit: 2200, requiresImage: true },
   facebook: { name: 'Facebook', limit: 63206 },
+  tiktok: { name: 'TikTok', limit: 2200 },
+  youtube: { name: 'YouTube', limit: 5000 },
 };
-// The set shown in the picker (order matters).
-const PLATFORM_IDS = ['twitter', 'instagram', 'facebook'];
+// The set shown in the pickers (order matters).
+const PLATFORM_IDS = ['twitter', 'instagram', 'facebook', 'tiktok', 'youtube'];
 const iconKey = (id) => PLATFORMS[id]?.icon || (id === 'twitter' ? 'x' : id);
 
 function platformIcon(id, cls = '') {
@@ -68,12 +74,14 @@ async function api(method, url, body) {
 
 async function load() {
   data = await api('GET', '/api/planner');
+  if (!Array.isArray(data.ideas)) data.ideas = [];
   renderAll();
 }
 
 function renderAll() {
   renderCalendar();
   renderQueue();
+  renderStudio();
   renderPhotos();
   renderAccounts();
 }
@@ -87,6 +95,7 @@ $('#tabs').addEventListener('click', (e) => {
   $$('#tabs .chip').forEach((c) => c.classList.toggle('active', c === btn));
   $('#calendar-view').hidden = tab !== 'calendar';
   $('#queue-view').hidden = tab !== 'queue';
+  $('#studio-view').hidden = tab !== 'studio';
   $('#photos-view').hidden = tab !== 'photos';
   $('#accounts-view').hidden = tab !== 'accounts';
 });
@@ -625,6 +634,365 @@ function renderAccounts() {
     row.querySelector('.handle').addEventListener('change', save);
     row.querySelector('.connected').addEventListener('change', save);
   });
+}
+
+// --- studio (content ideas) -------------------------------------------------
+
+const IDEA_STATUSES = ['idea', 'to_record', 'recorded', 'edited', 'posted'];
+const IDEA_STATUS_LABELS = {
+  idea: 'Idea',
+  to_record: 'To record',
+  recorded: 'Recorded',
+  edited: 'Edited',
+  posted: 'Posted',
+};
+
+let editingIdeaId = null;
+let ideaPlatforms = new Set();
+let recordIdea = null;
+let recordIndex = 0;
+
+const totalSeconds = (shots) => (shots || []).reduce((n, s) => n + (+s.seconds || 0), 0);
+
+function renderStudio() {
+  const grid = $('#ideas-grid');
+  if (!data.ideas.length) {
+    grid.innerHTML =
+      '<div class="empty-state"><p>No content ideas yet.</p><p class="muted">Ask your AI for short-form ideas (it writes the shot list + talk track), or add one yourself.</p><button class="btn primary" id="empty-idea">+ New idea</button></div>';
+    $('#empty-idea').addEventListener('click', () => openIdea(null));
+    return;
+  }
+  const order = { idea: 0, to_record: 1, recorded: 2, edited: 3, posted: 4 };
+  grid.innerHTML = '';
+  data.ideas
+    .slice()
+    .sort(
+      (a, b) =>
+        (order[a.status] ?? 9) - (order[b.status] ?? 9) ||
+        (b.updatedAt || '').localeCompare(a.updatedAt || '')
+    )
+    .forEach((idea) => grid.appendChild(ideaCard(idea)));
+}
+
+function ideaCard(idea) {
+  const el = document.createElement('article');
+  el.className = 'idea-card';
+  const icons = (idea.platforms || []).filter((p) => PLATFORMS[p]).map((p) => platformIcon(p)).join('');
+  const by = idea.createdBy === 'hermes' ? '<span class="tag hermes">Hermes</span>' : '';
+  el.innerHTML = `
+    <div class="idea-top"><span class="status-pill is-${idea.status}">${IDEA_STATUS_LABELS[idea.status] || idea.status}</span>${by}</div>
+    <h3 class="idea-hook">${escapeHtml(idea.hook || idea.title)}</h3>
+    <p class="idea-concept">${escapeHtml(idea.concept || '')}</p>
+    <div class="idea-metarow"><span class="picons">${icons}</span><span class="muted">${idea.shots.length} shots · ~${totalSeconds(idea.shots)}s</span></div>
+    <div class="idea-actions">
+      <button class="btn primary small" data-iact="record" ${idea.shots.length ? '' : 'disabled'}>▶ Record</button>
+      <button class="btn ghost small" data-iact="open">Open brief</button>
+    </div>`;
+  el.querySelector('[data-iact="record"]').addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (idea.shots.length) openRecord(idea);
+  });
+  el.querySelector('[data-iact="open"]').addEventListener('click', (e) => {
+    e.stopPropagation();
+    openIdea(idea);
+  });
+  el.addEventListener('click', () => openIdea(idea));
+  return el;
+}
+
+// --- idea editor ---
+
+function openIdea(idea) {
+  editingIdeaId = idea ? idea.id : null;
+  $('#idea-heading').textContent = idea ? 'Edit idea' : 'New idea';
+  const pill = $('#idea-status');
+  if (idea) {
+    pill.hidden = false;
+    pill.textContent = IDEA_STATUS_LABELS[idea.status] || idea.status;
+    pill.className = `status-pill is-${idea.status}`;
+  } else {
+    pill.hidden = true;
+  }
+  $('#idea-title').value = idea ? idea.title || '' : '';
+  $('#idea-hook').value = idea ? idea.hook || '' : '';
+  $('#idea-concept').value = idea ? idea.concept || '' : '';
+  $('#idea-caption').value = idea ? idea.caption || '' : '';
+  $('#idea-hashtags').value = idea ? (idea.hashtags || []).join(' ') : '';
+  ideaPlatforms = new Set(
+    idea ? (idea.platforms || []).filter((p) => PLATFORMS[p]) : ['tiktok', 'instagram']
+  );
+  renderIdeaPlatforms();
+  renderShots(idea ? idea.shots.map((s) => ({ ...s })) : []);
+  updateIdeaDerived();
+  buildIdeaActions(idea);
+  $('#idea-backdrop').hidden = false;
+  $('#idea-title').focus();
+}
+
+function closeIdea() {
+  $('#idea-backdrop').hidden = true;
+  editingIdeaId = null;
+}
+
+function renderIdeaPlatforms() {
+  $('#idea-platforms').innerHTML = PLATFORM_IDS.map((id) => {
+    const on = ideaPlatforms.has(id) ? ' on' : '';
+    return `<button type="button" class="ptoggle${on}" data-ip="${id}">${platformIcon(id)} ${PLATFORMS[id].name}</button>`;
+  }).join('');
+  $$('#idea-platforms .ptoggle').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.ip;
+      ideaPlatforms.has(id) ? ideaPlatforms.delete(id) : ideaPlatforms.add(id);
+      btn.classList.toggle('on');
+    })
+  );
+}
+
+function renderShots(shots) {
+  const box = $('#idea-shots');
+  box.innerHTML = '';
+  shots.forEach((s) => box.appendChild(shotRow(s)));
+  renumberShots();
+}
+
+function shotRow(s) {
+  const row = document.createElement('div');
+  row.className = 'shot-row';
+  row.innerHTML = `
+    <div class="shot-num"></div>
+    <div class="shot-fields">
+      <input class="shot-angle text-input" placeholder="Camera / angle — e.g. close-up, handheld, low angle" value="${escapeHtml(s.angle || '')}" />
+      <input class="shot-action text-input" placeholder="Action — what happens on screen" value="${escapeHtml(s.action || '')}" />
+      <textarea class="shot-say" rows="2" placeholder="Say — the exact words to speak over this clip">${escapeHtml(s.say || '')}</textarea>
+      <div class="shot-foot">
+        <label class="sec-label">⏱ <input type="number" class="shot-seconds" min="0" step="1" value="${Number(s.seconds) || 0}" /> sec</label>
+        <button type="button" class="btn danger small shot-del">Remove</button>
+      </div>
+    </div>`;
+  row.querySelector('.shot-del').addEventListener('click', () => {
+    const box = $('#idea-shots');
+    const idx = Array.from(box.children).indexOf(row);
+    const shots = collectShotsFromDom();
+    shots.splice(idx, 1);
+    renderShots(shots);
+    updateIdeaDerived();
+  });
+  return row;
+}
+
+function renumberShots() {
+  $$('#idea-shots .shot-num').forEach((el, i) => (el.textContent = i + 1));
+}
+
+function collectShotsFromDom() {
+  return $$('#idea-shots .shot-row').map((row) => ({
+    angle: row.querySelector('.shot-angle').value,
+    action: row.querySelector('.shot-action').value,
+    say: row.querySelector('.shot-say').value,
+    seconds: +row.querySelector('.shot-seconds').value || 0,
+  }));
+}
+
+function updateIdeaDerived() {
+  const shots = collectShotsFromDom();
+  $('#idea-voiceover').textContent = shots.map((s) => s.say).filter(Boolean).join('\n\n') || '—';
+  $('#idea-duration').textContent = shots.length ? `${shots.length} shots · ~${totalSeconds(shots)}s` : '';
+}
+
+function collectIdea() {
+  const payload = {
+    title: $('#idea-title').value,
+    hook: $('#idea-hook').value,
+    concept: $('#idea-concept').value,
+    platforms: [...ideaPlatforms],
+    shots: collectShotsFromDom(),
+    caption: $('#idea-caption').value,
+    hashtags: $('#idea-hashtags').value,
+  };
+  const sel = $('#idea-status-sel');
+  if (sel) payload.status = sel.value;
+  return payload;
+}
+
+function buildIdeaActions(idea) {
+  const box = $('#idea-actions');
+  const b = (act, label, cls = 'ghost', extra = '') =>
+    `<button class="btn ${cls}" data-iact="${act}" ${extra}>${label}</button>`;
+  if (idea) {
+    const sel = `<select id="idea-status-sel" class="status-select">${IDEA_STATUSES.map(
+      (s) => `<option value="${s}" ${s === idea.status ? 'selected' : ''}>${IDEA_STATUS_LABELS[s]}</option>`
+    ).join('')}</select>`;
+    box.innerHTML =
+      b('delete', 'Delete', 'danger') +
+      sel +
+      '<span class="spacer"></span>' +
+      b('record', '▶ Record', 'ghost') +
+      b('convert', 'Turn into post', 'ghost') +
+      b('save', 'Save', 'primary');
+  } else {
+    box.innerHTML = '<span class="spacer"></span>' + b('cancel', 'Cancel') + b('save', 'Save idea', 'primary');
+  }
+  box.querySelectorAll('[data-iact]').forEach((btn) =>
+    btn.addEventListener('click', () => ideaEditorAction(btn.dataset.iact, idea))
+  );
+}
+
+async function ideaEditorAction(act, idea) {
+  if (act === 'cancel') return closeIdea();
+  if (act === 'save') return saveIdea();
+  if (act === 'record') {
+    const shots = collectShotsFromDom();
+    if (!shots.length) return alert('Add at least one shot to record.');
+    return openRecord({ id: editingIdeaId, shots });
+  }
+  if (!idea) return;
+  if (act === 'delete') {
+    if (!confirm('Delete this idea?')) return;
+    try {
+      await api('DELETE', `/api/ideas/${idea.id}`);
+      closeIdea();
+      await load();
+    } catch (e) {
+      alert(e.message);
+    }
+    return;
+  }
+  if (act === 'convert') {
+    try {
+      await api('PATCH', `/api/ideas/${idea.id}`, collectIdea()); // save latest caption first
+      await api('POST', `/api/ideas/${idea.id}/convert`);
+      closeIdea();
+      await load();
+      alert('Added to your Queue as a draft post — attach your final video/thumbnail, then submit for approval.');
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+}
+
+async function saveIdea() {
+  try {
+    const payload = collectIdea();
+    if (editingIdeaId) await api('PATCH', `/api/ideas/${editingIdeaId}`, payload);
+    else await api('POST', '/api/ideas', payload);
+    closeIdea();
+    await load();
+  } catch (e) {
+    alert(e.message);
+  }
+}
+
+$('#new-idea-btn').addEventListener('click', () => openIdea(null));
+$('#idea-x').addEventListener('click', closeIdea);
+$('#add-shot-btn').addEventListener('click', () => {
+  const shots = collectShotsFromDom();
+  shots.push({ angle: '', action: '', say: '', seconds: 5 });
+  renderShots(shots);
+  updateIdeaDerived();
+  const rows = $$('#idea-shots .shot-row');
+  rows[rows.length - 1]?.querySelector('.shot-angle')?.focus();
+});
+$('#idea-shots').addEventListener('input', updateIdeaDerived);
+$('#idea-backdrop').addEventListener('click', (e) => {
+  if (e.target === $('#idea-backdrop')) return closeIdea();
+  const cp = e.target.closest('[data-copy]');
+  if (cp) {
+    copyText($('#idea-voiceover').textContent);
+    cp.textContent = 'Copied!';
+    setTimeout(() => (cp.textContent = 'Copy'), 1200);
+  }
+});
+
+// --- record mode (teleprompter) ---
+
+function openRecord(idea) {
+  recordIdea = idea;
+  recordIndex = 0;
+  renderRecordStep();
+  $('#record-backdrop').hidden = false;
+}
+function closeRecord() {
+  $('#record-backdrop').hidden = true;
+  recordIdea = null;
+}
+function renderRecordStep() {
+  const shots = recordIdea.shots;
+  const n = shots.length;
+  const body = $('#record-body');
+  const prog = $('#record-progress');
+
+  if (recordIndex >= n) {
+    prog.textContent = 'All done 🎉';
+    body.innerHTML = `<div class="record-done"><h2>That's every shot 🎬</h2><p class="muted">Nice work. Mark it recorded, or go back and edit a shot.</p><div class="record-done-actions"><button class="btn ghost" id="rec-copy-vo">Copy full voice-over</button>${recordIdea.id ? '<button class="btn primary" id="rec-mark">Mark as recorded</button>' : ''}</div></div>`;
+    $('#record-prev').disabled = false;
+    $('#record-next').hidden = true;
+    $('#rec-copy-vo')?.addEventListener('click', () =>
+      copyText(shots.map((s) => s.say).filter(Boolean).join('\n\n'))
+    );
+    $('#rec-mark')?.addEventListener('click', async () => {
+      try {
+        await api('POST', `/api/ideas/${recordIdea.id}/recorded`);
+        closeRecord();
+        await load();
+      } catch (e) {
+        alert(e.message);
+      }
+    });
+    return;
+  }
+
+  const s = shots[recordIndex];
+  prog.textContent = `Shot ${recordIndex + 1} of ${n}${s.seconds ? ` · ${s.seconds}s` : ''}`;
+  body.innerHTML = `
+    <div class="record-shotnum">${recordIndex + 1}</div>
+    ${s.angle ? `<div class="record-line"><span class="record-tag">🎥 Shoot</span><div>${escapeHtml(s.angle)}</div></div>` : ''}
+    ${s.action ? `<div class="record-line"><span class="record-tag">🎬 Action</span><div>${escapeHtml(s.action)}</div></div>` : ''}
+    ${s.say ? `<div class="record-say"><span class="record-tag">🎙 Say</span><p>${escapeHtml(s.say)}</p></div>` : ''}`;
+  $('#record-prev').disabled = recordIndex === 0;
+  $('#record-next').hidden = false;
+  $('#record-next').textContent = recordIndex === n - 1 ? 'Finish ✓' : 'Next ›';
+}
+$('#record-prev').addEventListener('click', () => {
+  if (recordIndex > 0) {
+    recordIndex--;
+    renderRecordStep();
+  }
+});
+$('#record-next').addEventListener('click', () => {
+  recordIndex++;
+  renderRecordStep();
+});
+$('#record-x').addEventListener('click', closeRecord);
+document.addEventListener('keydown', (e) => {
+  if (!$('#record-backdrop').hidden) {
+    if (e.key === 'Escape') closeRecord();
+    else if (e.key === 'ArrowLeft' && recordIndex > 0) {
+      recordIndex--;
+      renderRecordStep();
+    } else if (e.key === 'ArrowRight') {
+      recordIndex++;
+      renderRecordStep();
+    }
+    return;
+  }
+  if (e.key === 'Escape' && !$('#idea-backdrop').hidden) closeIdea();
+});
+
+async function copyText(str) {
+  try {
+    await navigator.clipboard.writeText(str);
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = str;
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+    } catch {
+      /* ignore */
+    }
+    ta.remove();
+  }
 }
 
 // --- utils ------------------------------------------------------------------

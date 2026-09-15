@@ -5,7 +5,9 @@
   "accounts": [
     { "id": "acc_twitter", "platform": "twitter", "handle": "", "displayName": "X / Twitter", "connected": false },
     { "id": "acc_instagram", "platform": "instagram", "handle": "", "displayName": "Instagram", "connected": false },
-    { "id": "acc_facebook", "platform": "facebook", "handle": "", "displayName": "Facebook", "connected": false }
+    { "id": "acc_facebook", "platform": "facebook", "handle": "", "displayName": "Facebook", "connected": false },
+    { "id": "acc_tiktok", "platform": "tiktok", "handle": "", "displayName": "TikTok", "connected": false },
+    { "id": "acc_youtube", "platform": "youtube", "handle": "", "displayName": "YouTube", "connected": false }
   ],
   "media": [],
   "posts": [
@@ -21,6 +23,29 @@
       "approvedAt": null,
       "postedAt": null,
       "results": {},
+      "createdAt": "2026-09-15T00:00:00.000Z",
+      "updatedAt": "2026-09-15T00:00:00.000Z"
+    }
+  ],
+  "ideas": [
+    {
+      "id": "idea_example",
+      "title": "3 things nobody tells you",
+      "hook": "\"Nobody tells you this before you start…\"",
+      "concept": "A punchy list of 3 hard-won lessons — talking to camera with quick b-roll cutaways to keep the energy up. This is a template: ask your AI to write real ones for you.",
+      "platforms": ["tiktok", "instagram", "youtube"],
+      "shots": [
+        { "id": "s1", "angle": "Talking head, phone at eye level, window light on your face", "action": "Deliver the hook straight to camera — confident, lean in slightly", "say": "Nobody tells you this before you start. Here are 3 things I learned the hard way.", "seconds": 4 },
+        { "id": "s2", "angle": "Close-up b-roll of your hands / product / workspace", "action": "Show the thing while the voiceover plays over it", "say": "Number one: start before you feel ready — you never will.", "seconds": 6 },
+        { "id": "s3", "angle": "Walking shot, camera slightly low, moving toward you", "action": "Walk and talk, keep the pace up", "say": "Number two: boring consistent work beats the big flashy move every time.", "seconds": 6 },
+        { "id": "s4", "angle": "Talking head, tighter framing than shot 1", "action": "Land the last point and the call to action", "say": "Number three: your first try will be rough. Post it anyway. Follow for more.", "seconds": 6 }
+      ],
+      "caption": "3 things I wish I knew earlier 👇 Which one hit hardest?",
+      "hashtags": ["#smallbusiness", "#lessonslearned", "#founder"],
+      "status": "idea",
+      "createdBy": "system",
+      "notes": "",
+      "postId": null,
       "createdAt": "2026-09-15T00:00:00.000Z",
       "updatedAt": "2026-09-15T00:00:00.000Z"
     }

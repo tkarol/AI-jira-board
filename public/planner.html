@@ -23,6 +23,7 @@
         <div class="filters" id="tabs">
           <button class="chip active" data-tab="calendar">Calendar</button>
           <button class="chip" data-tab="queue">Queue</button>
+          <button class="chip" data-tab="studio">Studio</button>
           <button class="chip" data-tab="photos">Photos</button>
           <button class="chip" data-tab="accounts">Accounts</button>
         </div>
@@ -52,6 +53,18 @@
     <!-- QUEUE -->
     <section class="planner-view" id="queue-view" hidden>
       <div class="queue" id="queue"></div>
+    </section>
+
+    <!-- STUDIO (short-form content ideas) -->
+    <section class="planner-view" id="studio-view" hidden>
+      <div class="panel-head">
+        <div>
+          <h2>Content Studio</h2>
+          <p class="muted">Shootable short-form ideas — each with a shot list and a word-for-word talk track. Ask your AI to draft ideas, then hit Record.</p>
+        </div>
+        <button class="btn primary" id="new-idea-btn">+ New idea</button>
+      </div>
+      <div class="ideas-grid" id="ideas-grid"></div>
     </section>
 
     <!-- PHOTOS -->
@@ -132,6 +145,62 @@
           <span class="spacer"></span>
           <button class="btn primary" id="picker-done">Done</button>
         </div>
+      </div>
+    </div>
+
+    <!-- Idea editor / brief modal -->
+    <div class="modal-backdrop" id="idea-backdrop" hidden>
+      <div class="modal composer" role="dialog" aria-modal="true">
+        <div class="composer-head">
+          <h2 class="modal-heading" id="idea-heading">New idea</h2>
+          <span class="status-pill" id="idea-status" hidden></span>
+          <button class="icon-btn close" id="idea-x" aria-label="Close">✕</button>
+        </div>
+
+        <div class="idea-body">
+          <label class="field-label">Title</label>
+          <input type="text" id="idea-title" class="text-input full" placeholder="Short name for this idea" />
+
+          <label class="field-label">Hook (first 3 seconds)</label>
+          <input type="text" id="idea-hook" class="text-input full" placeholder="The scroll-stopping opening line" />
+
+          <label class="field-label">Concept / story</label>
+          <textarea id="idea-concept" class="modal-description" rows="2" placeholder="What's the angle and story?"></textarea>
+
+          <label class="field-label">Platforms</label>
+          <div class="platform-picker" id="idea-platforms"></div>
+
+          <div class="shots-head">
+            <label class="field-label">Shot list &amp; talk track</label>
+            <span class="muted" id="idea-duration"></span>
+          </div>
+          <div id="idea-shots"></div>
+          <button type="button" class="btn ghost small" id="add-shot-btn">+ Add shot</button>
+
+          <label class="field-label">Full voice-over track</label>
+          <div class="voiceover-box"><pre id="idea-voiceover"></pre><button type="button" class="btn ghost small copy-btn" data-copy="voiceover">Copy</button></div>
+
+          <label class="field-label">Caption</label>
+          <textarea id="idea-caption" class="modal-description" rows="2" placeholder="The post caption"></textarea>
+
+          <label class="field-label">Hashtags</label>
+          <input type="text" id="idea-hashtags" class="text-input full" placeholder="#space #separated #tags" />
+        </div>
+
+        <div class="modal-actions" id="idea-actions"></div>
+      </div>
+    </div>
+
+    <!-- Record mode (full-screen teleprompter) -->
+    <div class="record-overlay" id="record-backdrop" hidden>
+      <div class="record-head">
+        <span id="record-progress" class="record-progress"></span>
+        <button class="icon-btn close" id="record-x" aria-label="Close">✕</button>
+      </div>
+      <div class="record-body" id="record-body"></div>
+      <div class="record-nav">
+        <button class="btn ghost" id="record-prev">‹ Prev</button>
+        <button class="btn primary" id="record-next">Next ›</button>
       </div>
     </div>
 

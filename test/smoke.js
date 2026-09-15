@@ -131,4 +131,42 @@ const m2 = planner.addMedia(pl, { filename: 'b.jpg', url: 'https://x/b.jpg' });
 const photoPost = planner.createPost(pl, { content: '', mediaIds: [m2.id], platforms: ['instagram'] });
 assert.strictEqual(photoPost.mediaIds.length, 1);
 
+// --- content ideas (Studio) -------------------------------------------------
+pl.ideas = [];
+assert.throws(() => planner.createIdea(pl, {}), /at least a title/);
+
+const idea = planner.createIdea(pl, {
+  hook: 'Watch this',
+  platforms: ['tiktok', 'bogus', 'instagram'],
+  shots: [
+    { angle: 'close up', action: 'show it', say: 'here it is', seconds: '5' },
+    { angle: '', action: '', say: '' }, // empty shot dropped
+  ],
+  hashtags: 'founder, #smallbiz',
+  createdBy: 'hermes',
+});
+assert.deepStrictEqual(idea.platforms, ['tiktok', 'instagram'], 'invalid platform dropped');
+assert.strictEqual(idea.shots.length, 1, 'empty shot dropped');
+assert.strictEqual(idea.shots[0].seconds, 5, 'seconds coerced to number');
+assert.deepStrictEqual(idea.hashtags, ['#founder', '#smallbiz'], 'hashtags normalized');
+assert.strictEqual(idea.status, 'idea');
+assert.strictEqual(idea.title, 'Watch this', 'title falls back to hook');
+
+// status transitions
+planner.setIdeaStatus(pl, idea.id, 'to_record');
+assert.strictEqual(pl.ideas[0].status, 'to_record');
+assert.throws(() => planner.setIdeaStatus(pl, idea.id, 'bogus'), (e) => e.status === 404);
+
+// convert to a draft post
+const postsBefore = pl.posts.length;
+const genPost = planner.convertIdeaToPost(pl, idea.id);
+assert.strictEqual(pl.posts.length, postsBefore + 1, 'post created from idea');
+assert.strictEqual(genPost.status, 'draft');
+assert.deepStrictEqual(genPost.platforms, ['tiktok', 'instagram']);
+assert.strictEqual(pl.ideas[0].postId, genPost.id, 'idea linked to post');
+
+// delete
+planner.deleteIdea(pl, idea.id);
+assert.strictEqual(pl.ideas.length, 0);
+
 console.log('✓ all smoke tests passed');

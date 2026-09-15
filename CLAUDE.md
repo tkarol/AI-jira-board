@@ -116,7 +116,7 @@ the **same data branch** as `board.json`. It has three parts:
 | ------------- | -------- | --------------------------------------------------------------------- |
 | `id`          | string   | Unique, `p_` + hex.                                                    |
 | `content`     | string   | The post text.                                                        |
-| `platforms`   | string[] | Subset of `["twitter","instagram","facebook"]`.                       |
+| `platforms`   | string[] | Subset of `["twitter","instagram","facebook","tiktok","youtube"]`.    |
 | `mediaIds`    | string[] | Must reference existing `media[].id` — never invent one.              |
 | `scheduledAt` | string?  | ISO 8601, or `null`.                                                   |
 | `status`      | string   | `draft` → `needs_approval` → `approved`/`scheduled` → `posted` (or `failed`). |
@@ -162,3 +162,73 @@ Commit planner changes to the **data branch** with a clear message, e.g.
 `GET /api/planner`, `POST /api/posts`, `PATCH /api/posts/:id`,
 `DELETE /api/posts/:id`, `POST /api/posts/:id/{approve|revert|posted}`,
 `GET/POST /api/media`, `PATCH/DELETE /api/media/:id`, `PATCH /api/accounts/:id`.
+
+---
+
+# Content Studio — short-form video ideas (`planner.json` → `ideas`)
+
+The Studio helps the user shoot short-form video (TikTok / Reels / Shorts). Each
+**idea** is a *shootable brief*: a hook, the story, a numbered shot list, and the
+exact words to say over each clip. **You (the AI) are the idea engine** — when the
+user asks for content ideas, you write real, specific briefs into `ideas`, and the
+web app turns them into a record-along guide (with a full-screen teleprompter).
+
+Each idea in `planner.json.ideas`:
+
+```jsonc
+{
+  "id": "idea_x",
+  "title": "Short name",
+  "hook": "The first line — the scroll-stopper said in the first 3 seconds",
+  "concept": "The angle/story in a sentence or two",
+  "platforms": ["tiktok","instagram","youtube"],   // short-form targets
+  "shots": [
+    {
+      "id": "s1",
+      "angle": "Camera/framing — e.g. 'talking head, phone at eye level, window light'",
+      "action": "What happens on screen — e.g. 'walk toward camera, hold up the product'",
+      "say": "The EXACT words to speak over this clip (this is the talk track)",
+      "seconds": 5
+    }
+  ],
+  "caption": "The post caption",
+  "hashtags": ["#tag1","#tag2"],
+  "status": "idea",          // idea -> to_record -> recorded -> edited -> posted
+  "createdBy": "hermes",
+  "postId": null             // set when the idea is turned into a post
+}
+```
+
+## How to write GOOD short-form briefs
+
+The user has said they don't know what angles to shoot or what the story should
+be — so **be concrete and directive**, not vague. For each idea:
+
+- **Hook first.** Write a real first line that stops the scroll (a bold claim, a
+  question, a "nobody tells you…"). It goes in `hook` and as shot 1's `say`.
+- **A clear story arc** across shots: hook → build/payoff → call to action.
+- **Shot list a beginner can follow.** For every shot give a specific `angle`
+  (framing, camera height, movement, lighting) and `action` (what to physically
+  do). Mix talking-head shots with b-roll cutaways so the video isn't static.
+- **Write the talk track word-for-word** in each shot's `say` — this is what the
+  teleprompter shows. Keep each line short and speakable.
+- **Realistic lengths:** most short-form clips are 3–8 seconds; keep the whole
+  thing ~15–45s. Put seconds on each shot.
+- **Finish with caption + hashtags** tuned to the platform.
+- Tag your ideas `createdBy: "hermes"` and default `status: "idea"` (or
+  `"to_record"` if they're ready to shoot).
+
+Write ideas grounded in the user's actual world (their categories are **Birdie
+Bus** and **Booz Allen** on the board — use context you have). Prefer a few
+strong, specific ideas over many generic ones.
+
+## Turning an idea into a post
+
+Ideas graduate into the normal post approval flow: the web app's "Turn into post"
+button (or `POST /api/ideas/:id/convert`) creates a **draft** post from the
+caption + hashtags + platforms and links it via `idea.postId`. The user then
+attaches the finished video/thumbnail and submits for approval. Do NOT bypass the
+approval gate — a converted post is a `draft`, not approved.
+
+REST API: `POST /api/ideas`, `PATCH /api/ideas/:id`, `DELETE /api/ideas/:id`,
+`POST /api/ideas/:id/{to_record|recorded|edited|posted|convert}`.

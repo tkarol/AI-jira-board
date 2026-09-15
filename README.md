@@ -146,6 +146,22 @@ per-platform APIs). Its credentials go in **server-side env vars only** — neve
 the repo. Until then, approved posts are your queue: hit **Mark posted** once you
 publish, or we automate it.
 
+### 🎬 Content Studio (short-form video ideas)
+
+The **Studio** tab helps you shoot TikToks / Reels / Shorts when you don't know
+what to film. Each **idea** is a shootable brief: a hook, the story, a numbered
+**shot list** (angle + action + how long), and the **exact words to say** over
+each clip. Ask your AI for ideas and it writes the briefs; then:
+
+- **▶ Record** opens a full-screen teleprompter that steps you through each shot —
+  what to point the camera at and what to say — with Next/Prev.
+- **Turn into post** graduates a finished idea into a draft in your approval
+  queue (caption + hashtags + platforms carried over).
+- Track each idea: `idea → to record → recorded → edited → posted`.
+
+Platforms now include **TikTok** and **YouTube** alongside X / Instagram /
+Facebook.
+
 ## REST API
 
 | Method   | Path              | Body                                             |
@@ -162,6 +178,10 @@ publish, or we automate it.
 | `GET/POST` | `/api/media`    | list / upload `{ filename, contentType, dataBase64 }` |
 | `DELETE` | `/api/media/:id`  | —                                                |
 | `PATCH`  | `/api/accounts/:id` | `{ handle?, connected? }`                       |
+| `POST`   | `/api/ideas`      | `{ title?, hook?, concept?, platforms?, shots?, caption?, hashtags? }` |
+| `PATCH`  | `/api/ideas/:id`  | edit an idea / shot list                         |
+| `POST`   | `/api/ideas/:id/convert` · `/recorded` · … | convert to a post / set status |
+| `DELETE` | `/api/ideas/:id`  | —                                                |
 
 ---
 
