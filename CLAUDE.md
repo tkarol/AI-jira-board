@@ -93,3 +93,72 @@ either approach works, since both operate on the same `board.json`.
 Application code (server.js, lib/, api/, public/) is separate from the board data.
 Change code on a normal feature branch/PR; change the board by committing
 `board.json` to the data branch. Don't mix the two in one commit.
+
+---
+
+# Social media planner (`planner.json`)
+
+A second feature: a social media planner. Its data lives in **`planner.json`** on
+the **same data branch** as `board.json`. It has three parts:
+
+```jsonc
+{
+  "meta":     { "version": 1 },
+  "accounts": [ { "id": "acc_twitter", "platform": "twitter", "handle": "@me", "connected": false }, ... ],
+  "media":    [ { "id": "m_x", "url": "https://…", "filename": "beach.jpg", "caption": "" }, ... ],
+  "posts":    [ /* post objects */ ]
+}
+```
+
+### Post object
+
+| Field         | Type     | Rules                                                                 |
+| ------------- | -------- | --------------------------------------------------------------------- |
+| `id`          | string   | Unique, `p_` + hex.                                                    |
+| `content`     | string   | The post text.                                                        |
+| `platforms`   | string[] | Subset of `["twitter","instagram","facebook"]`.                       |
+| `mediaIds`    | string[] | Must reference existing `media[].id` — never invent one.              |
+| `scheduledAt` | string?  | ISO 8601, or `null`.                                                   |
+| `status`      | string   | `draft` → `needs_approval` → `approved`/`scheduled` → `posted` (or `failed`). |
+| `createdBy`   | string   | `"you"`, `"hermes"`, or `"system"`. Set `"hermes"` for posts you draft. |
+| `notes`       | string   | Internal note, never published.                                       |
+| `approvedAt` / `postedAt` / `results` | —      | Set by the approval / posting flow, not by you.        |
+
+## 🔴 The approval rule (do not break this)
+
+**Nothing publishes without the user's explicit approval.** So:
+
+- ✅ You MAY: create posts (as `draft` or `needs_approval`), edit `content`,
+  `platforms`, `mediaIds`, `scheduledAt`, and `notes` of posts that are still
+  `draft`/`needs_approval`, and attach **existing** media.
+- ✅ When you draft a post for the user, set `createdBy: "hermes"` and put it in
+  `needs_approval` so it shows up in their approval queue.
+- ⛔ You MUST NOT set a post's `status` to `approved`, `scheduled`, or `posted`.
+  Those transitions are the **user's** action (the Approve / Mark-posted buttons,
+  or the `POST /api/posts/:id/approve` endpoint which represents the user).
+  Committing such a status change to `planner.json` yourself defeats the whole
+  point of the gate — don't.
+- ⛔ Do not edit a post that is already `approved`/`scheduled`/`posted`. If a
+  change is needed, ask the user to revert it to draft first.
+
+## 🔑 Secrets rule
+
+**Never put social account tokens, API keys, or passwords in the repo** — not in
+`planner.json`, not anywhere committed. Those live only in server-side env vars
+(configured on Vercel). `accounts[]` holds display metadata (handle, connected
+flag) only. Photos: reference existing `media[].url`; never paste image bytes or
+data URLs into the repo.
+
+## Common planner operations
+
+- **Draft a post for approval:** append a post with `status: "needs_approval"`,
+  `createdBy: "hermes"`, chosen `platforms`, optional `mediaIds`/`scheduledAt`.
+- **Revise a draft:** edit its fields while it's `draft`/`needs_approval`.
+- **Reference a photo:** use an existing `media[].id`; the user uploads photos in
+  the web app's Photos tab (they go to blob storage, not the repo).
+
+Commit planner changes to the **data branch** with a clear message, e.g.
+`planner: draft 3 launch posts for approval`. Or use the REST API:
+`GET /api/planner`, `POST /api/posts`, `PATCH /api/posts/:id`,
+`DELETE /api/posts/:id`, `POST /api/posts/:id/{approve|revert|posted}`,
+`GET/POST /api/media`, `PATCH/DELETE /api/media/:id`, `PATCH /api/accounts/:id`.

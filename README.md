@@ -108,6 +108,44 @@ app writes to). It can also drive the deployed REST API instead (see below).
 
 ---
 
+## 📣 Social media planner
+
+A second view (top nav → **Planner**) for planning social posts across
+**X / Twitter, Instagram, and Facebook**, with a photo library. Its data lives in
+`planner.json` on the same data branch as the board.
+
+**The approval gate is the whole point:** Hermes can *draft and schedule* posts,
+but they sit in **Needs approval** until *you* hit Approve. Nothing can be marked
+approved/scheduled through the normal edit path — only the Approve action (a human
+action) can. So your AI can do all the work and you keep the final say.
+
+Flow: `Draft → Needs approval → Approved / Scheduled → Posted`.
+
+- **New post** — write text, pick platforms, attach photos, set a schedule time.
+- **Photos tab** — upload images (auto-resized) to your photo library; Hermes can
+  reference them in posts. Photos are stored in **Vercel Blob**, not the repo.
+- **Accounts tab** — set the handle you post as (metadata only).
+
+### Setup for photos (Vercel Blob)
+
+1. In your Vercel project → **Storage** → create a **Blob** store and connect it.
+   Vercel injects `BLOB_READ_WRITE_TOKEN` automatically.
+2. Redeploy. Uploads now go to Blob. (Locally with no token, uploads fall back to
+   a `./uploads` folder so dev still works.)
+
+This adds one dependency (`@vercel/blob`), so a deploy now runs `npm install`
+(Vercel does this automatically). Local `node server.js` still runs without
+installing — photos just use the local fallback.
+
+### Publishing engine — the next step
+
+Actually auto-posting to the platforms is **not wired up yet** (by design — we
+chose "planner + photos now, wire posting later"). When you're ready, we plug in a
+publishing provider (an aggregator like Ayrshare, self-hosted Postiz/Mixpost, or
+per-platform APIs). Its credentials go in **server-side env vars only** — never in
+the repo. Until then, approved posts are your queue: hit **Mark posted** once you
+publish, or we automate it.
+
 ## REST API
 
 | Method   | Path              | Body                                             |
@@ -117,6 +155,13 @@ app writes to). It can also drive the deployed REST API instead (see below).
 | `PATCH`  | `/api/tasks/:id`  | any subset of the task fields                    |
 | `DELETE` | `/api/tasks/:id`  | —                                                |
 | `POST`   | `/api/reorder`    | `{ updates: [{ id, column, order }] }`           |
+| `GET`    | `/api/planner`    | — (accounts, media, posts)                       |
+| `POST`   | `/api/posts`      | `{ content, platforms, mediaIds?, scheduledAt?, status? }` |
+| `PATCH`  | `/api/posts/:id`  | edit a draft/needs_approval post                 |
+| `POST`   | `/api/posts/:id/approve` · `/revert` · `/posted` | approval actions (human) |
+| `GET/POST` | `/api/media`    | list / upload `{ filename, contentType, dataBase64 }` |
+| `DELETE` | `/api/media/:id`  | —                                                |
+| `PATCH`  | `/api/accounts/:id` | `{ handle?, connected? }`                       |
 
 ---
 

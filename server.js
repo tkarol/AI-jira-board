@@ -18,10 +18,12 @@ const fs = require('fs');
 const path = require('path');
 
 const handlers = require('./lib/handlers');
+const planner = require('./lib/planner-handlers');
 const store = require('./lib/store');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
+const UPLOAD_DIR = path.join(__dirname, 'uploads');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -30,6 +32,11 @@ const MIME = {
   '.json': 'application/json; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.webp': 'image/webp',
 };
 
 function sendJson(res, status, obj) {
@@ -45,7 +52,7 @@ function readRequestBody(req) {
     let data = '';
     req.on('data', (chunk) => {
       data += chunk;
-      if (data.length > 1e6) req.destroy();
+      if (data.length > 15e6) req.destroy(); // allow base64 photo uploads
     });
     req.on('end', () => {
       if (!data) return resolve({});
@@ -62,8 +69,15 @@ function readRequestBody(req) {
 function serveStatic(req, res) {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
   if (urlPath === '/') urlPath = '/index.html';
-  const filePath = path.join(PUBLIC_DIR, path.normalize(urlPath));
-  if (!filePath.startsWith(PUBLIC_DIR)) {
+
+  // Locally-uploaded photos live outside public/ so they aren't committed.
+  const baseDir = urlPath.startsWith('/uploads/') ? __dirname : PUBLIC_DIR;
+  if (urlPath === '/uploads' || urlPath === '/uploads/') {
+    res.writeHead(404);
+    return res.end('Not found');
+  }
+  const filePath = path.join(baseDir, path.normalize(urlPath));
+  if (!filePath.startsWith(PUBLIC_DIR) && !filePath.startsWith(UPLOAD_DIR)) {
     res.writeHead(403);
     return res.end('Forbidden');
   }
@@ -82,16 +96,48 @@ async function route(req, res, urlPath) {
   const body =
     req.method === 'GET' || req.method === 'DELETE' ? {} : await readRequestBody(req);
 
+  // --- board ---
   if (req.method === 'GET' && urlPath === '/api/board') return handlers.getBoard();
   if (req.method === 'POST' && urlPath === '/api/tasks') return handlers.createTask(body);
   if (req.method === 'POST' && urlPath === '/api/reorder') return handlers.reorder(body);
 
-  const m = urlPath.match(/^\/api\/tasks\/([^/]+)$/);
-  if (m) {
-    const id = m[1];
+  const taskM = urlPath.match(/^\/api\/tasks\/([^/]+)$/);
+  if (taskM) {
+    const id = taskM[1];
     if (req.method === 'PATCH' || req.method === 'PUT') return handlers.updateTask(id, body);
     if (req.method === 'DELETE') return handlers.deleteTask(id);
   }
+
+  // --- planner ---
+  if (req.method === 'GET' && urlPath === '/api/planner') return planner.getPlanner();
+  if (req.method === 'POST' && urlPath === '/api/posts') return planner.createPost(body);
+
+  const actionM = urlPath.match(/^\/api\/posts\/([^/]+)\/([^/]+)$/);
+  if (actionM && req.method === 'POST') return planner.postAction(actionM[1], actionM[2]);
+
+  const postM = urlPath.match(/^\/api\/posts\/([^/]+)$/);
+  if (postM) {
+    const id = postM[1];
+    if (req.method === 'PATCH' || req.method === 'PUT') return planner.updatePost(id, body);
+    if (req.method === 'DELETE') return planner.deletePost(id);
+  }
+
+  if (urlPath === '/api/media') {
+    if (req.method === 'GET') return planner.listMedia();
+    if (req.method === 'POST') return planner.uploadMedia(body);
+  }
+  const mediaM = urlPath.match(/^\/api\/media\/([^/]+)$/);
+  if (mediaM) {
+    const id = mediaM[1];
+    if (req.method === 'PATCH' || req.method === 'PUT') return planner.updateMedia(id, body);
+    if (req.method === 'DELETE') return planner.deleteMedia(id);
+  }
+
+  const acctM = urlPath.match(/^\/api\/accounts\/([^/]+)$/);
+  if (acctM && (req.method === 'PATCH' || req.method === 'PUT')) {
+    return planner.updateAccount(acctM[1], body);
+  }
+
   return { status: 404, json: { error: 'unknown endpoint' } };
 }
 

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Social Planner</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%A3%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>Social Planner</h1>
+        <nav class="viewnav">
+          <a href="/">Board</a>
+          <a href="/planner.html" class="active">Planner</a>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <div class="filters" id="tabs">
+          <button class="chip active" data-tab="posts">Posts</button>
+          <button class="chip" data-tab="photos">Photos</button>
+          <button class="chip" data-tab="accounts">Accounts</button>
+        </div>
+        <button class="btn primary" id="new-post-btn">+ New post</button>
+      </div>
+    </header>
+
+    <!-- POSTS -->
+    <main class="board" id="posts-view"></main>
+
+    <!-- PHOTOS -->
+    <section class="panel" id="photos-view" hidden>
+      <div class="panel-head">
+        <h2>Photo library</h2>
+        <label class="btn primary upload-label">
+          + Upload photos
+          <input type="file" id="photo-input" accept="image/*" multiple hidden />
+        </label>
+      </div>
+      <p class="muted" id="upload-status"></p>
+      <div class="photo-grid" id="photo-grid"></div>
+    </section>
+
+    <!-- ACCOUNTS -->
+    <section class="panel" id="accounts-view" hidden>
+      <div class="panel-head"><h2>Connected accounts</h2></div>
+      <p class="muted">
+        Set the handle you post as. Live posting is wired up later — actual account
+        tokens are stored securely on the server, never here.
+      </p>
+      <div id="accounts-list"></div>
+    </section>
+
+    <!-- Compose modal -->
+    <div class="modal-backdrop" id="compose-backdrop" hidden>
+      <div class="modal wide" role="dialog" aria-modal="true">
+        <h2 class="modal-heading" id="compose-heading">New post</h2>
+
+        <label class="field-label">Post text</label>
+        <textarea id="compose-text" class="modal-description" rows="5" placeholder="Write your post…"></textarea>
+        <div class="compose-meta">
+          <span id="char-count" class="muted"></span>
+          <span id="platform-warning" class="warn"></span>
+        </div>
+
+        <label class="field-label">Post to</label>
+        <div class="platform-picker" id="platform-picker"></div>
+
+        <label class="field-label">Photos</label>
+        <div class="attach-strip" id="attach-strip"></div>
+        <button type="button" class="btn ghost small" id="attach-btn">+ Attach from library</button>
+
+        <div class="modal-row">
+          <label class="field">
+            <span class="field-label">Schedule for</span>
+            <input type="datetime-local" id="compose-schedule" />
+          </label>
+        </div>
+
+        <label class="field-label">Notes (not posted)</label>
+        <input type="text" id="compose-notes" class="text-input" placeholder="Internal note…" />
+
+        <div class="modal-actions">
+          <button class="btn danger" id="compose-delete" hidden>Delete</button>
+          <span class="spacer"></span>
+          <button class="btn ghost" id="compose-cancel">Cancel</button>
+          <button class="btn ghost" id="compose-draft">Save draft</button>
+          <button class="btn primary" id="compose-submit">Submit for approval</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo picker modal -->
+    <div class="modal-backdrop" id="picker-backdrop" hidden>
+      <div class="modal wide" role="dialog" aria-modal="true">
+        <h2 class="modal-heading">Attach photos</h2>
+        <div class="photo-grid" id="picker-grid"></div>
+        <div class="modal-actions">
+          <span class="spacer"></span>
+          <button class="btn primary" id="picker-done">Done</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/planner.js"></script>
+  </body>
+</html>

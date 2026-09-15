@@ -76,4 +76,59 @@ const reparsed = JSON.parse(fs.readFileSync(tmpFile, 'utf8'));
 assert.strictEqual(reparsed.tasks.length, 1);
 fs.rmSync(tmpDir, { recursive: true, force: true });
 
+// --- planner domain ---------------------------------------------------------
+const planner = require('../lib/planner');
+
+function makePlanner() {
+  return { meta: { version: 1 }, accounts: planner.DEFAULT_PLANNER.accounts.map((a) => ({ ...a })), media: [], posts: [] };
+}
+
+let pl = makePlanner();
+
+// empty post rejected
+assert.throws(() => planner.createPost(pl, { content: '  ', platforms: [] }), /needs text or/);
+
+// create filters invalid platforms
+const post = planner.createPost(pl, { content: 'Hello world', platforms: ['twitter', 'bogus'], createdBy: 'hermes' });
+assert.deepStrictEqual(post.platforms, ['twitter'], 'invalid platform dropped');
+assert.strictEqual(post.status, 'draft');
+assert.strictEqual(post.createdBy, 'hermes');
+
+// approval gate: generic update cannot set approved
+assert.throws(() => planner.updatePost(pl, post.id, { status: 'approved' }), /approve\/revert actions/);
+
+// submit for approval is allowed
+planner.updatePost(pl, post.id, { status: 'needs_approval' });
+assert.strictEqual(pl.posts[0].status, 'needs_approval');
+
+// approve with no platforms should fail
+const p2 = planner.createPost(pl, { content: 'x', platforms: [] });
+assert.throws(() => planner.approvePost(pl, p2.id), /at least one platform/);
+
+// approve -> approved (no schedule) ; with schedule -> scheduled
+const approved = planner.approvePost(pl, post.id);
+assert.strictEqual(approved.status, 'approved');
+assert.ok(approved.approvedAt);
+
+// editing an approved post is blocked (must revert first)
+assert.throws(() => planner.updatePost(pl, post.id, { content: 'new' }), (e) => e.status === 409);
+
+// revert -> draft, then schedule + approve -> scheduled
+planner.revertPost(pl, post.id);
+planner.updatePost(pl, post.id, { scheduledAt: '2999-01-01T10:00:00.000Z' });
+assert.strictEqual(planner.approvePost(pl, post.id).status, 'scheduled');
+
+// media add + reference cleanup on delete
+const m = planner.addMedia(pl, { filename: 'a.jpg', url: 'https://x/a.jpg', pathname: 'uploads/a.jpg' });
+planner.revertPost(pl, post.id);
+planner.updatePost(pl, post.id, { mediaIds: [m.id] });
+assert.deepStrictEqual(pl.posts.find((x) => x.id === post.id).mediaIds, [m.id]);
+planner.removeMedia(pl, m.id);
+assert.deepStrictEqual(pl.posts.find((x) => x.id === post.id).mediaIds, [], 'media detached from post on delete');
+
+// createPost with only a photo (no text) is allowed
+const m2 = planner.addMedia(pl, { filename: 'b.jpg', url: 'https://x/b.jpg' });
+const photoPost = planner.createPost(pl, { content: '', mediaIds: [m2.id], platforms: ['instagram'] });
+assert.strictEqual(photoPost.mediaIds.length, 1);
+
 console.log('✓ all smoke tests passed');
