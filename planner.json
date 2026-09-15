@@ -3,16 +3,36 @@
     "version": 1
   },
   "accounts": [
-    { "id": "acc_twitter", "platform": "twitter", "handle": "", "displayName": "X / Twitter", "connected": false },
-    { "id": "acc_instagram", "platform": "instagram", "handle": "", "displayName": "Instagram", "connected": false },
-    { "id": "acc_facebook", "platform": "facebook", "handle": "", "displayName": "Facebook", "connected": false }
+    {
+      "id": "acc_twitter",
+      "platform": "twitter",
+      "handle": "",
+      "displayName": "X / Twitter",
+      "connected": true
+    },
+    {
+      "id": "acc_instagram",
+      "platform": "instagram",
+      "handle": "",
+      "displayName": "Instagram",
+      "connected": false
+    },
+    {
+      "id": "acc_facebook",
+      "platform": "facebook",
+      "handle": "",
+      "displayName": "Facebook",
+      "connected": false
+    }
   ],
   "media": [],
   "posts": [
     {
       "id": "p_example",
       "content": "Example post — Hermes can draft these for you, then they wait here until you approve. Edit me, attach a photo, pick platforms, set a time.",
-      "platforms": ["twitter"],
+      "platforms": [
+        "twitter"
+      ],
       "mediaIds": [],
       "scheduledAt": null,
       "status": "draft",
