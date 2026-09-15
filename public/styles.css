@@ -207,6 +207,55 @@ body {
   text-align: center;
 }
 
+.col-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  background: none;
+  font: inherit;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  padding: 0;
+}
+.col-toggle .caret {
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: transform 0.15s ease;
+}
+.column.collapsed .caret {
+  transform: rotate(-90deg);
+}
+.col-head-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.col-add {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+}
+.col-add:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.column.collapsed .column-cards,
+.column.collapsed .add-card {
+  display: none;
+}
+.column.collapsed {
+  padding-bottom: 6px;
+}
+
 .column-cards {
   padding: 4px 10px 10px;
   overflow-y: auto;

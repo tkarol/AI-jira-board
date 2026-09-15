@@ -15,6 +15,26 @@ let board = { meta: {}, columns: [], tasks: [] };
 let activeFilter = 'all';
 let editingId = null;
 
+// Columns the user has collapsed (persisted per-browser).
+const collapsedColumns = new Set(loadCollapsed());
+function loadCollapsed() {
+  try {
+    return JSON.parse(localStorage.getItem('collapsedColumns') || '[]');
+  } catch {
+    return [];
+  }
+}
+function toggleColumn(id, colEl) {
+  if (collapsedColumns.has(id)) collapsedColumns.delete(id);
+  else collapsedColumns.add(id);
+  colEl.classList.toggle('collapsed');
+  try {
+    localStorage.setItem('collapsedColumns', JSON.stringify([...collapsedColumns]));
+  } catch {
+    /* ignore storage errors (private mode etc.) */
+  }
+}
+
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
@@ -70,12 +90,23 @@ function render() {
   for (const col of board.columns) {
     const tasks = tasksFor(col.id);
     const colEl = document.createElement('section');
-    colEl.className = 'column';
+    colEl.className = 'column' + (collapsedColumns.has(col.id) ? ' collapsed' : '');
     colEl.dataset.column = col.id;
 
     const header = document.createElement('div');
     header.className = 'column-header';
-    header.innerHTML = `<span>${escapeHtml(col.name)}</span><span class="column-count">${tasks.length}</span>`;
+    header.innerHTML = `
+      <button class="col-toggle"><span class="caret">▾</span>${escapeHtml(col.name)}</button>
+      <span class="col-head-right">
+        <span class="column-count">${tasks.length}</span>
+        <button class="col-add" title="Add a card" aria-label="Add a card">+</button>
+      </span>`;
+    header.querySelector('.col-toggle').addEventListener('click', () => toggleColumn(col.id, colEl));
+    header.querySelector('.col-add').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (collapsedColumns.has(col.id)) toggleColumn(col.id, colEl);
+      quickAddInColumn(col.id);
+    });
     colEl.appendChild(header);
 
     const cards = document.createElement('div');
@@ -119,6 +150,7 @@ function renderCard(task) {
 
   el.addEventListener('click', (e) => {
     if (e.target.closest('[data-move]')) return; // don't open the editor when moving
+    if (el.dataset.swiped) { delete el.dataset.swiped; return; } // ignore click after a swipe
     openEditModal(task.id);
   });
   el.querySelectorAll('[data-move]').forEach((btn) =>
@@ -133,7 +165,56 @@ function renderCard(task) {
     e.dataTransfer.effectAllowed = 'move';
   });
   el.addEventListener('dragend', () => el.classList.remove('dragging'));
+  attachSwipe(el, task);
   return el;
+}
+
+// Swipe a card left/right (on touch) to move it to the next/previous column.
+function attachSwipe(el, task) {
+  let startX = 0;
+  let startY = 0;
+  let active = false;
+  el.addEventListener(
+    'touchstart',
+    (e) => {
+      const t = e.touches[0];
+      startX = t.clientX;
+      startY = t.clientY;
+      active = true;
+    },
+    { passive: true }
+  );
+  el.addEventListener(
+    'touchmove',
+    (e) => {
+      if (!active) return;
+      const t = e.touches[0];
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+        el.dataset.swiped = '1';
+        el.style.transition = 'none';
+        el.style.transform = `translateX(${dx}px)`;
+        el.style.opacity = String(Math.max(0.4, 1 - Math.abs(dx) / 400));
+      }
+    },
+    { passive: true }
+  );
+  const end = (e) => {
+    if (!active) return;
+    active = false;
+    el.style.transition = '';
+    el.style.transform = '';
+    el.style.opacity = '';
+    if (!el.dataset.swiped) return;
+    const dx = (e.changedTouches ? e.changedTouches[0].clientX : startX) - startX;
+    const cols = board.columns.map((c) => c.id);
+    const idx = cols.indexOf(task.column);
+    if (dx <= -60 && idx < cols.length - 1) moveTask(task.id, cols[idx + 1]);
+    else if (dx >= 60 && idx > 0) moveTask(task.id, cols[idx - 1]);
+  };
+  el.addEventListener('touchend', end);
+  el.addEventListener('touchcancel', end);
 }
 
 // Move a card to another column with one tap (optimistic, then persist).
