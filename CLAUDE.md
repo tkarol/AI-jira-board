@@ -1,9 +1,25 @@
 # Managing this board
 
 This project is a personal Kanban / to-do board. The **entire board is stored in
-`board.json`** at the repo root. That file is the single source of truth for both
-the web app and you (the AI). When the user asks you to track, add, move,
+`board.json`** in this repo. That file is the single source of truth for both the
+web app and you (the AI). When the user asks you to track, add, move,
 re-prioritise, or clean up tasks, you do it by **editing `board.json`**.
+
+## Where the live data lives (important)
+
+The deployed web app (on Vercel) saves the board by **committing `board.json` to
+the `board-data` branch** via the GitHub API. So:
+
+- **The live board is `board.json` on the `board-data` branch.** Read and edit it
+  there — not on a code/feature branch — so your changes and the web app's stay in
+  sync. (If the project is configured to use a different branch, it's whatever
+  `GITHUB_DATA_BRANCH` is set to; default is `board-data`.)
+- Commit your edits straight to that branch with a clear message. The web app will
+  pick them up on its next read, and vice versa.
+- Alternatively, you can drive the deployed REST API (see the end of this file)
+  instead of committing — either works, since both operate on the same file.
+- If you're running against a **local checkout with no GitHub token**, the dev
+  server reads/writes the local `board.json` file instead; edit that file.
 
 ## The data model
 
@@ -62,11 +78,18 @@ re-prioritise, or clean up tasks, you do it by **editing `board.json`**.
 
 ## After editing
 
-If the user has work in progress, prefer editing `board.json` in place. If they
-ask you to persist your changes, commit them with a clear message (e.g.
-`board: add 3 business tasks, move passport renewal to In Progress`).
+Commit your `board.json` change to the **`board-data`** branch (the branch the web
+app reads and writes) with a clear message, e.g.
+`board: add 3 business tasks, move passport renewal to In Progress`. Do not open a
+PR for board-data changes — commit directly; this is data, not code.
 
-You can also drive the same changes through the running server's REST API
+You can also drive the same changes through the deployed/running server's REST API
 (`GET /api/board`, `POST /api/tasks`, `PATCH /api/tasks/:id`,
-`DELETE /api/tasks/:id`, `POST /api/reorder`) — but editing the file directly is
-usually simplest and works even when the server isn't running.
+`DELETE /api/tasks/:id`, `POST /api/reorder { updates: [{id, column, order}] }`) —
+either approach works, since both operate on the same `board.json`.
+
+## Code vs. data
+
+Application code (server.js, lib/, api/, public/) is separate from the board data.
+Change code on a normal feature branch/PR; change the board by committing
+`board.json` to the data branch. Don't mix the two in one commit.
