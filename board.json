@@ -21,5 +21,17 @@
       "name": "Done"
     }
   ],
-  "tasks": []
+  "tasks": [
+    {
+      "id": "t_74b75e0dfee5",
+      "title": "Connect Hermes to this board",
+      "description": "",
+      "column": "backlog",
+      "category": "birdie_bus",
+      "priority": "medium",
+      "order": 0,
+      "createdAt": "2026-09-15T13:48:27.140Z",
+      "updatedAt": "2026-09-15T13:48:27.140Z"
+    }
+  ]
 }
