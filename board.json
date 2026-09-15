@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "title": "My Board",
+    "version": 1
+  },
+  "columns": [
+    { "id": "backlog", "name": "Backlog" },
+    { "id": "todo", "name": "To Do" },
+    { "id": "in_progress", "name": "In Progress" },
+    { "id": "done", "name": "Done" }
+  ],
+  "tasks": [
+    {
+      "id": "t_welcome",
+      "title": "Welcome to your board 👋",
+      "description": "This is a sample card. Click it to edit the title, description, category and priority. Drag it between columns, or delete it. Your AI can also add, move, and edit cards by editing board.json.",
+      "column": "todo",
+      "category": "personal",
+      "priority": "medium",
+      "order": 0,
+      "createdAt": "2026-09-15T00:00:00.000Z",
+      "updatedAt": "2026-09-15T00:00:00.000Z"
+    },
+    {
+      "id": "t_sample_business",
+      "title": "Example: a business task",
+      "description": "Tag cards as business or personal so you can filter them. Set a priority to sort what matters.",
+      "column": "backlog",
+      "category": "business",
+      "priority": "high",
+      "order": 0,
+      "createdAt": "2026-09-15T00:00:00.000Z",
+      "updatedAt": "2026-09-15T00:00:00.000Z"
+    }
+  ]
+}

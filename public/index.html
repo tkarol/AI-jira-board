@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>My Board</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%82%EF%B8%8F%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 id="board-title">My Board</h1>
+      </div>
+      <div class="topbar-right">
+        <div class="filters" id="filters">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="business">Business</button>
+          <button class="chip" data-filter="personal">Personal</button>
+        </div>
+        <button class="btn primary" id="quick-add-btn">+ Add todo</button>
+      </div>
+    </header>
+
+    <!-- Quick add bar -->
+    <form class="quick-add" id="quick-add" hidden>
+      <input
+        type="text"
+        id="qa-title"
+        placeholder="What needs doing?"
+        autocomplete="off"
+        required
+      />
+      <select id="qa-category">
+        <option value="personal">Personal</option>
+        <option value="business">Business</option>
+      </select>
+      <select id="qa-priority">
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
+      <select id="qa-column"></select>
+      <button type="submit" class="btn primary">Add</button>
+      <button type="button" class="btn ghost" id="qa-cancel">Cancel</button>
+    </form>
+
+    <main class="board" id="board"></main>
+
+    <!-- Edit modal -->
+    <div class="modal-backdrop" id="modal-backdrop" hidden>
+      <div class="modal" role="dialog" aria-modal="true">
+        <input type="text" class="modal-title" id="edit-title" placeholder="Title" />
+        <label class="field-label">Description</label>
+        <textarea
+          id="edit-description"
+          class="modal-description"
+          rows="5"
+          placeholder="Add more detail…"
+        ></textarea>
+        <div class="modal-row">
+          <label class="field">
+            <span class="field-label">Category</span>
+            <select id="edit-category">
+              <option value="personal">Personal</option>
+              <option value="business">Business</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field-label">Priority</span>
+            <select id="edit-priority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field-label">Column</span>
+            <select id="edit-column"></select>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="btn danger" id="edit-delete">Delete</button>
+          <span class="spacer"></span>
+          <button class="btn ghost" id="edit-cancel">Cancel</button>
+          <button class="btn primary" id="edit-save">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "ai-jira-board",
+  "version": "1.0.0",
+  "description": "A simple Kanban to-do board backed by a single board.json file, editable by a web UI and by an AI assistant.",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT"
+}
