@@ -405,6 +405,91 @@
       "postId": null,
       "createdAt": "2026-09-15T15:08:53.425145Z",
       "updatedAt": "2026-09-15T15:08:53.425145Z"
+    },
+    {
+      "id": "idea_setup_day",
+      "title": "Setup Day: On-Site Shot List",
+      "hook": "Watch us set up the Birdie Bus in under 5 minutes.",
+      "concept": "A time-lapse and behind-the-scenes look at arriving at a venue, setting up the bus, and getting the first golfer playing. Shows professionalism and ease of setup.",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "shots": [
+        {
+          "id": "setup_s1",
+          "angle": "WIDE: Phone horizontal, 20 feet back, chest height. Frame the entire arrival scene.",
+          "action": "Film the bus pulling into the venue. Get the arrival, parking, and initial positioning.",
+          "say": "We just pulled up. Watch how fast this comes together.",
+          "seconds": 4,
+          "videography_tip": "Arrive 10 minutes early. Set up your phone on a tripod or prop it on something stable BEFORE the bus arrives. Hit record, let it run. You can speed this up 4x in editing."
+        },
+        {
+          "id": "setup_s2",
+          "angle": "TIME-LAPSE: Phone mounted on tripod inside the bus, portrait mode, facing the side door.",
+          "action": "Film the entire setup process: opening doors, dropping the stage, powering on, connecting cables.",
+          "say": "Stage drops. Power on. Ready to go.",
+          "seconds": 6,
+          "videography_tip": "Use time-lapse mode (iPhone: Camera > Time-Lapse). Mount phone securely. Let it run for the entire setup (usually 15-30 minutes). You'll speed it up to 6 seconds in editing."
+        },
+        {
+          "id": "setup_s3",
+          "angle": "CLOSE-UP: Phone portrait, 3 feet from the Trackman unit, eye level.",
+          "action": "Close-up of hands plugging in cables, pressing power button, screen lighting up.",
+          "say": "Trackman 4. The same tech the pros use.",
+          "seconds": 4,
+          "videography_tip": "Clean the unit first. Use a desk lamp or ring light if indoors. Film 3 takes of the power-on sequence. The screen lighting up is the money shot."
+        },
+        {
+          "id": "setup_s4",
+          "angle": "MEDIUM: Phone horizontal, 8 feet back, chest height. Frame the full setup with branding visible.",
+          "action": "Walk around the bus showing the complete setup from different angles.",
+          "say": "Full setup. Branded. Ready for your event.",
+          "seconds": 5,
+          "videography_tip": "Walk slowly and steadily. Get 4 angles: front, back, left side, right side. Each angle is a separate 2-second clip in the edit."
+        },
+        {
+          "id": "setup_s5",
+          "angle": "MEDIUM SHOT: Phone portrait, 6 feet away, waist height. Frame the first golfer.",
+          "action": "Film the first guest stepping up, grabbing a club, and taking their first swing.",
+          "say": "First swing of the day. Let's go.",
+          "seconds": 5,
+          "videography_tip": "Ask the guest if they're comfortable being filmed first. Film 3 swings, pick the best one. Their reaction after the swing (smile, surprise) is just as important as the swing itself."
+        },
+        {
+          "id": "setup_s6",
+          "angle": "CLOSE-UP: Phone portrait, 2 feet from the leaderboard screen.",
+          "action": "Show the first score going up on the leaderboard. Name, distance, ranking.",
+          "say": "And we're live. Who's next?",
+          "seconds": 3,
+          "videography_tip": "Make sure the screen is readable. If glare is a problem, shoot at a slight angle or adjust the screen brightness first."
+        },
+        {
+          "id": "setup_s7",
+          "angle": "TALKING HEAD: Phone on tripod or propped, portrait mode, eye level, 3 feet away. Plain background.",
+          "action": "Look at camera, smile, deliver the call to action.",
+          "say": "Setup takes 20 minutes. We handle everything. Book Birdie Bus for your next event.",
+          "seconds": 5,
+          "videography_tip": "Do 3 takes. Look at the lens, not the screen. Natural light from a window in front of you. If you mess up, just keep going, you can trim the mistake."
+        }
+      ],
+      "caption": "Setup to first swing in under 20 minutes. We handle everything. \ud83d\ude8c\u26f3 #birdiebus #mobilegolf #eventrental #swfl #golfsimulator",
+      "hashtags": [
+        "#birdiebus",
+        "#mobilegolf",
+        "#eventrental",
+        "#swfl",
+        "#golfsimulator",
+        "#behindthescenes",
+        "#setup"
+      ],
+      "status": "idea",
+      "createdBy": "hermes",
+      "notes": "Use this shot list EVERY time you set up at a new venue. The footage is reusable for months. Total runtime: ~32 seconds. Film once, use forever. Add venue name to caption when posting from specific locations.",
+      "postId": null,
+      "createdAt": "2026-09-15T15:12:51.973116Z",
+      "updatedAt": "2026-09-15T15:12:51.973116Z"
     }
   ]
 }
