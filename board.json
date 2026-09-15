@@ -88,6 +88,17 @@
       "order": 0,
       "createdAt": "2026-09-15T15:44:35.965Z",
       "updatedAt": "2026-09-15T15:44:35.965Z"
+    },
+    {
+      "id": "t_609587eae3f3",
+      "title": "Follow up: Grant Thornton sponsor outreach (Naples Jet, Shriners, Servpro)",
+      "description": "Activation overviews sent 9/15. CRM next follow-up 9/18. Watch for replies; call if silent.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 4,
+      "createdAt": "2026-09-15T22:01:46.000Z",
+      "updatedAt": "2026-09-15T22:01:46.000Z"
     }
   ]
 }
