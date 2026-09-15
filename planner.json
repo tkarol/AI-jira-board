@@ -69,12 +69,12 @@
       "scheduledAt": null,
       "status": "needs_approval",
       "createdBy": "hermes",
-      "notes": "Launch announcement post. Pair with reveal video if available.",
+      "notes": "Launch announcement post. Pair with reveal video if available. Film tips: Use landscape mode for wide shots, portrait for close-ups. Golden hour lighting (1 hour before sunset) looks best. Edit in CapCut (free) or iMovie.",
       "approvedAt": null,
       "postedAt": null,
       "results": {},
       "createdAt": "2026-09-15T15:02:15.943892Z",
-      "updatedAt": "2026-09-15T15:02:15.943892Z"
+      "updatedAt": "2026-09-15T15:08:53.425145Z"
     },
     {
       "id": "p_93a9dc7b611c",
@@ -86,70 +86,17 @@
       "scheduledAt": null,
       "status": "needs_approval",
       "createdBy": "hermes",
-      "notes": "Wedding-focused post. Target engaged couples and wedding planners.",
+      "notes": "Wedding-focused post. Target engaged couples and wedding planners. Film tips: Candid shots of real guests work best. The bride swinging in her dress is the money shot. Do multiple takes.",
       "approvedAt": null,
       "postedAt": null,
       "results": {},
       "createdAt": "2026-09-15T15:02:15.943892Z",
-      "updatedAt": "2026-09-15T15:02:15.943892Z"
+      "updatedAt": "2026-09-15T15:08:53.425145Z"
     }
   ],
   "ideas": [
     {
-      "id": "idea_example",
-      "title": "3 things nobody tells you",
-      "hook": "\"Nobody tells you this before you start\u2026\"",
-      "concept": "A punchy list of 3 hard-won lessons \u2014 talking to camera with quick b-roll cutaways. This is a template: ask your AI to write real ones for you.",
-      "platforms": [
-        "tiktok",
-        "instagram",
-        "youtube"
-      ],
-      "shots": [
-        {
-          "id": "s1",
-          "angle": "Talking head, phone at eye level, window light on your face",
-          "action": "Deliver the hook straight to camera \u2014 confident, lean in slightly",
-          "say": "Nobody tells you this before you start. Here are 3 things I learned the hard way.",
-          "seconds": 4
-        },
-        {
-          "id": "s2",
-          "angle": "Close-up b-roll of your hands / product / workspace",
-          "action": "Show the thing while the voiceover plays over it",
-          "say": "Number one: start before you feel ready \u2014 you never will.",
-          "seconds": 6
-        },
-        {
-          "id": "s3",
-          "angle": "Walking shot, camera slightly low, moving toward you",
-          "action": "Walk and talk, keep the pace up",
-          "say": "Number two: boring consistent work beats the big flashy move every time.",
-          "seconds": 6
-        },
-        {
-          "id": "s4",
-          "angle": "Talking head, tighter framing than shot 1",
-          "action": "Land the last point and the call to action",
-          "say": "Number three: your first try will be rough. Post it anyway. Follow for more.",
-          "seconds": 6
-        }
-      ],
-      "caption": "3 things I wish I knew earlier \ud83d\udc47 Which one hit hardest?",
-      "hashtags": [
-        "#smallbusiness",
-        "#lessonslearned",
-        "#founder"
-      ],
-      "status": "idea",
-      "createdBy": "system",
-      "notes": "",
-      "postId": null,
-      "createdAt": "2026-09-15T00:00:00.000Z",
-      "updatedAt": "2026-09-15T00:00:00.000Z"
-    },
-    {
-      "id": "idea_cc6348d01a79",
+      "id": "idea_cf5994a28603",
       "title": "Birdie Bus launch: The mobile golf simulator arrives",
       "hook": "We turned a step van into a golf simulator. Here's how.",
       "concept": "Origin story video showing the transformation from empty van to fully branded Birdie Bus with Trackman 4, drop-down stage, and crowd-facing setup. Build anticipation for the launch.",
@@ -161,38 +108,43 @@
       "shots": [
         {
           "id": "s1",
-          "angle": "Wide shot of empty van interior, before",
-          "action": "Slow pan across empty space",
+          "angle": "WIDE SHOT: Stand back 10 feet from the bus. Hold phone horizontally (landscape). Prop phone on a stable surface or use a tripod at chest height. Frame the entire side of the bus.",
+          "action": "Slow pan from left to right across the empty van interior. Keep phone steady. Move slowly, about 5 seconds for the full pan.",
           "say": "This was just an empty step van 6 months ago.",
-          "seconds": 3
+          "seconds": 5,
+          "videography_tip": "Use landscape mode. If you don't have a tripod, stack books or use a water bottle to prop the phone. Natural light from the open door works best. Record for 10 seconds, you'll trim to 5."
         },
         {
           "id": "s2",
-          "angle": "Time-lapse of build-out",
-          "action": "Quick cuts of construction, branding, tech install",
+          "angle": "TIME-LAPSE OR QUICK CUTS: Mount phone on a tripod or stable surface inside the bus. Portrait mode (vertical) for TikTok/Reels.",
+          "action": "Film 3-5 short clips (2-3 seconds each) of the build: tools, branding being applied, screen being mounted. Or use time-lapse mode if your phone has it.",
           "say": "We spent months turning it into something nobody in Southwest Florida has seen.",
-          "seconds": 6
+          "seconds": 6,
+          "videography_tip": "For quick cuts: record 5 separate 3-second clips. For time-lapse: prop phone, hit record, do 30 minutes of work, stop. iPhone: Camera app > Time-Lapse. Android: Open Camera app > Time lapse."
         },
         {
           "id": "s3",
-          "angle": "Reveal: Trackman 4 screen lighting up",
-          "action": "Screen turns on, golf course appears",
+          "angle": "CLOSE-UP: Phone in portrait mode, held at eye level, 3 feet from the Trackman screen. Focus on the screen.",
+          "action": "Press the power button on the Trackman. Screen lights up showing a golf course. Hold steady for 4 seconds.",
           "say": "Now it's a full golf simulator on wheels.",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "Clean the screen first. Turn off overhead lights to reduce glare. If screen looks washed out, tap the screen on your phone to focus and slide the exposure down slightly."
         },
         {
           "id": "s4",
-          "angle": "Exterior: stage dropping, crowd gathering",
-          "action": "Stage drops, people walking up",
+          "angle": "EXTERIOR WIDE: Stand 15 feet back from the bus. Phone horizontal. Frame the bus and the area in front where people gather.",
+          "action": "Have someone press the button to drop the stage. Film it lowering. Then film 2-3 people walking up and looking at the bus.",
           "say": "And we bring it to you. Weddings, corporate events, tournaments.",
-          "seconds": 5
+          "seconds": 5,
+          "videography_tip": "Golden hour (1 hour before sunset) makes this shot look 10x better. If you can't do golden hour, overcast days are best for even lighting. Avoid harsh midday sun."
         },
         {
           "id": "s5",
-          "angle": "Close-up: hands on club, ball flight on screen",
-          "action": "Swing, ball flies on screen",
+          "angle": "CLOSE-UP: Phone portrait, held by a friend or on a small tripod, 4 feet from the golfer. Focus on hands and club.",
+          "action": "Golfer takes a smooth, slow swing. Ball hits screen. Capture the moment of impact and the ball flight on screen in the background.",
           "say": "Trackman 4. Real data. Real fun. Book us.",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "Use slow-motion mode if your phone has it (iPhone: Slo-mo, 240fps). Record 10 seconds, trim to the 4 seconds with the best swing. Make sure the Trackman screen is visible in the background."
         }
       ],
       "caption": "From empty van to mobile golf experience. Birdie Bus is here. \ud83d\ude8c\u26f3 #golf #mobilegolf #trackman #swfl #birdiebus",
@@ -208,13 +160,13 @@
       ],
       "status": "idea",
       "createdBy": "hermes",
-      "notes": "Launch announcement video. Film the actual bus reveal if possible.",
+      "notes": "Launch announcement video. Film the actual bus reveal if possible. Total runtime: ~24 seconds. Edit in CapCut (free) or iMovie: trim clips, add text overlay for hook, add trending audio at low volume (20%) under voiceover.",
       "postId": null,
-      "createdAt": "2026-09-15T15:02:15.943892Z",
-      "updatedAt": "2026-09-15T15:02:15.943892Z"
+      "createdAt": "2026-09-15T15:08:53.425145Z",
+      "updatedAt": "2026-09-15T15:08:53.425145Z"
     },
     {
-      "id": "idea_8de8baa2d35e",
+      "id": "idea_00dc0990167e",
       "title": "Grant Thornton Invitational sponsor activation",
       "hook": "We're activating at the Grant Thornton Invitational. Here's what that means for your brand.",
       "concept": "B2B-focused content targeting potential sponsors. Show the Birdie Bus setup at Tibur\u00f3n, the crowd engagement, and the branding opportunities.",
@@ -225,31 +177,35 @@
       "shots": [
         {
           "id": "s1",
-          "angle": "Aerial/wide: Tibur\u00f3n Golf Club",
-          "action": "Establish the venue",
+          "angle": "AERIAL/WIDE: If you have a drone, fly it 50 feet up. If not, stand on any elevated surface (hill, balcony, stairs). Phone horizontal.",
+          "action": "Slow pan across Tibur\u00f3n Golf Club. Show the course, the crowds, the tents.",
           "say": "This December, the best golfers in the world are at Tibur\u00f3n.",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "No drone? No problem. Shoot from the highest point you can find. Even 10 feet of elevation helps. Keep the horizon level."
         },
         {
           "id": "s2",
-          "angle": "Birdie Bus setup with sponsor branding visible",
-          "action": "Show branded bus with crowd",
+          "angle": "MEDIUM SHOT: Phone horizontal, chest height, 8 feet from the bus. Frame the bus with the sponsor branding visible.",
+          "action": "Slow zoom in (use your feet, walk closer) on the branded bus. Show people interacting with it.",
           "say": "And Birdie Bus is right in the middle of it with a branded activation.",
-          "seconds": 5
+          "seconds": 5,
+          "videography_tip": "Walk slowly and steadily. Bend your knees slightly to reduce bounce. If you have a gimbal (DJI Osmo, etc.), use it. If not, just walk slow."
         },
         {
           "id": "s3",
-          "angle": "Close-up: live leaderboard, guest playing",
-          "action": "Guest swings, leaderboard updates",
+          "angle": "CLOSE-UP: Phone portrait, 3 feet from the leaderboard screen. Focus on the screen showing names and scores.",
+          "action": "Capture a guest swinging, then cut to the leaderboard updating with their score.",
           "say": "Your logo on the leaderboard. Your brand in front of an affluent, engaged crowd.",
-          "seconds": 5
+          "seconds": 5,
+          "videography_tip": "Film the swing in one clip, the leaderboard in another. You'll cut them together in editing. Make sure the sponsor logo is visible on screen."
         },
         {
           "id": "s4",
-          "angle": "Talking head: direct to camera",
-          "action": "Speak to sponsors",
+          "angle": "TALKING HEAD: Phone on tripod or propped at eye level, 3 feet away. Portrait mode. Plain background (bus interior or solid wall).",
+          "action": "Look directly at the camera. Speak clearly and confidently. Smile.",
           "say": "We have 3 sponsorship tiers left. DM me or check the link in bio.",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "Look at the lens, not the screen. Put a small piece of tape on the floor where you stand so you hit the same spot every take. Do 3 takes, pick the best. Natural light from a window in front of you is best."
         }
       ],
       "caption": "December 7-13. Grant Thornton Invitational. Your brand on the Birdie Bus. Limited spots. #golfsponsor #sportmarketing #naplesflorida #grantthorntoninvitational",
@@ -263,13 +219,13 @@
       ],
       "status": "idea",
       "createdBy": "hermes",
-      "notes": "Target sponsors: Naples Jet Center, STOCK, Herc, Publix, Elite Jets. Post during tournament week if possible.",
+      "notes": "Target sponsors: Naples Jet Center, STOCK, Herc, Publix, Elite Jets. Post during tournament week if possible. Total runtime: ~18 seconds.",
       "postId": null,
-      "createdAt": "2026-09-15T15:02:15.943892Z",
-      "updatedAt": "2026-09-15T15:02:15.943892Z"
+      "createdAt": "2026-09-15T15:08:53.425145Z",
+      "updatedAt": "2026-09-15T15:08:53.425145Z"
     },
     {
-      "id": "idea_5c98605b7efe",
+      "id": "idea_d075129ea3fc",
       "title": "Wedding venue activation: The coolest reception add-on",
       "hook": "Your wedding guests will never forget this.",
       "concept": "Target wedding planners and engaged couples. Show Birdie Bus at a wedding reception with guests playing closest-to-the-pin, bride/groom swinging, crowd cheering.",
@@ -280,31 +236,35 @@
       "shots": [
         {
           "id": "s1",
-          "angle": "Bride and groom walking up to Birdie Bus",
-          "action": "They approach, curious",
+          "angle": "MEDIUM SHOT: Phone portrait, held by a friend or on tripod, 6 feet away. Frame the bride and groom from waist up.",
+          "action": "Bride and groom walk toward the bus, looking curious and excited.",
           "say": "You spent months planning the perfect wedding.",
-          "seconds": 3
+          "seconds": 3,
+          "videography_tip": "Have the couple walk toward the camera. Film 3 takes. The natural, candid reaction is better than a posed one."
         },
         {
           "id": "s2",
-          "angle": "Guests lining up, laughing, playing",
-          "action": "Montage of guests swinging",
+          "angle": "MEDIUM WIDE: Phone horizontal, 10 feet back. Frame a group of guests around the bus.",
+          "action": "Film guests laughing, high-fiving, taking turns. Get 3-4 different groups if possible.",
           "say": "But your guests will remember this.",
-          "seconds": 5
+          "seconds": 5,
+          "videography_tip": "Candid shots work best. Don't ask people to look at the camera. Film them actually having fun. Get a mix of close-ups and wide shots."
         },
         {
           "id": "s3",
-          "angle": "Bride swings in wedding dress",
-          "action": "She swings, crowd cheers",
+          "angle": "CLOSE-UP: Phone portrait, 4 feet away. Focus on the bride's face and upper body.",
+          "action": "Bride takes a swing in her dress. Capture her reaction (smile, laugh, cheer).",
           "say": "Even the bride plays.",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "This is the money shot. Do multiple takes. Get her laughing, get her concentrating, get her celebrating. Slow-motion if possible."
         },
         {
           "id": "s4",
-          "angle": "Close-up: ring shot with golf club",
-          "action": "Detail shot",
+          "angle": "DETAIL SHOT: Phone portrait, 2 feet away. Focus on hands.",
+          "action": "Close-up of the bride's hand with wedding ring, holding a golf club. Slow, steady shot.",
           "say": "Birdie Bus. The wedding add-on nobody forgets. Book for your date.",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "This is a detail shot for the edit. Hold steady for 5 seconds. The ring + club combo tells the whole story in one image."
         }
       ],
       "caption": "The wedding add-on your guests will actually talk about. \ud83d\ude8c\ud83d\udc8d\u26f3 #wedding #weddingreception #birdiebus #golfwedding #swflwedding",
@@ -319,13 +279,13 @@
       ],
       "status": "idea",
       "createdBy": "hermes",
-      "notes": "Wedding venues are priority #1. Target: Heitman House, Burroughs Home, other SWFL venues.",
+      "notes": "Wedding venues are priority #1. Target: Heitman House, Burroughs Home, other SWFL venues. Total runtime: ~16 seconds. Film at an actual wedding if possible, or stage with friends.",
       "postId": null,
-      "createdAt": "2026-09-15T15:02:15.943892Z",
-      "updatedAt": "2026-09-15T15:02:15.943892Z"
+      "createdAt": "2026-09-15T15:08:53.425145Z",
+      "updatedAt": "2026-09-15T15:08:53.425145Z"
     },
     {
-      "id": "idea_e2ff93e8ba94",
+      "id": "idea_03810816e1a8",
       "title": "Corporate event: Team building that doesn't suck",
       "hook": "Your team building event doesn't have to be awkward.",
       "concept": "Target corporate event planners. Show a company happy hour with Birdie Bus, coworkers competing on closest-to-the-pin, boss playing, team bonding.",
@@ -337,31 +297,35 @@
       "shots": [
         {
           "id": "s1",
-          "angle": "Office workers looking bored at typical event",
-          "action": "Yawn, checking phones",
+          "angle": "MEDIUM SHOT: Phone horizontal, 8 feet away. Frame a group of office workers looking bored at a typical corporate event.",
+          "action": "Film people standing around awkwardly, checking phones, forced smiles. Keep it brief.",
           "say": "Another trust fall? Another awkward icebreaker?",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "This is the \"before\" shot. You can stage this with friends or use stock footage. The contrast is what matters."
         },
         {
           "id": "s2",
-          "angle": "Cut to: Birdie Bus with team competing",
-          "action": "High-fives, cheering, competition",
+          "angle": "MEDIUM WIDE: Phone horizontal, 10 feet back. Frame the Birdie Bus with a group of coworkers around it.",
+          "action": "Film coworkers laughing, competing, high-fiving. Show genuine fun.",
           "say": "Or you could do this.",
-          "seconds": 3
+          "seconds": 3,
+          "videography_tip": "Cut quickly from the boring shot to this one. The energy shift is the hook. Film real reactions."
         },
         {
           "id": "s3",
-          "angle": "Close-up: leaderboard, names going up",
-          "action": "Leaderboard updates",
+          "angle": "CLOSE-UP: Phone portrait, 3 feet from the leaderboard screen.",
+          "action": "Show the leaderboard updating with names and scores. Focus on the competition.",
           "say": "Real competition. Real data. Real fun.",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "Make sure the names and scores are readable. Film in good lighting. If the screen is hard to read, shoot at a slight angle to reduce glare."
         },
         {
           "id": "s4",
-          "angle": "Group photo with Birdie Bus",
-          "action": "Team posing, smiling",
+          "angle": "GROUP SHOT: Phone horizontal, 12 feet back. Frame the whole group with the bus in the background.",
+          "action": "Group poses for a photo or cheers together. Genuine smiles.",
           "say": "Birdie Bus. Corporate events your team will actually want to attend. Book now.",
-          "seconds": 5
+          "seconds": 5,
+          "videography_tip": "Get the group to do a cheer or toast. Film 2-3 takes. This is the feel-good ending shot."
         }
       ],
       "caption": "Team building that doesn't feel like a trust fall. \ud83d\ude8c\u26f3 #corporateevents #teambuilding #birdiebus #golf #swflbusiness",
@@ -376,13 +340,13 @@
       ],
       "status": "idea",
       "createdBy": "hermes",
-      "notes": "Target: corporate event planners, HR directors, office managers in SWFL.",
+      "notes": "Target: corporate event planners, HR directors, office managers in SWFL. Total runtime: ~16 seconds.",
       "postId": null,
-      "createdAt": "2026-09-15T15:02:15.943892Z",
-      "updatedAt": "2026-09-15T15:02:15.943892Z"
+      "createdAt": "2026-09-15T15:08:53.425145Z",
+      "updatedAt": "2026-09-15T15:08:53.425145Z"
     },
     {
-      "id": "idea_c325f64c95c9",
+      "id": "idea_2374a11c865e",
       "title": "Behind the scenes: Trackman 4 setup",
       "hook": "This is $25,000 of golf technology in a van.",
       "concept": "Tech-focused content for golf enthusiasts. Show the Trackman 4 setup, the screen, the accuracy, the data. Appeal to serious golfers.",
@@ -394,31 +358,35 @@
       "shots": [
         {
           "id": "s1",
-          "angle": "Close-up: Trackman 4 unit",
-          "action": "Slow pan across device",
+          "angle": "CLOSE-UP: Phone portrait, 2 feet from the Trackman 4 unit. Slow pan across the device.",
+          "action": "Slow, smooth pan from left to right across the Trackman unit. Show the details.",
           "say": "This is the same technology the pros use.",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "Move slowly and steadily. Use a small tripod or prop the phone on a stable surface. Natural light is best. If indoors, use a ring light or desk lamp to reduce shadows."
         },
         {
           "id": "s2",
-          "angle": "Screen: ball flight data, spin rate, carry distance",
-          "action": "Show data points",
+          "angle": "CLOSE-UP: Phone portrait, 2 feet from the screen. Focus on the data display.",
+          "action": "Show the screen with ball flight data: speed, spin rate, carry distance, launch angle. Tap each metric as you mention it.",
           "say": "Ball speed. Spin rate. Carry distance. Launch angle.",
-          "seconds": 5
+          "seconds": 5,
+          "videography_tip": "Clean the screen first. Turn off overhead lights to reduce glare. Tap the screen on your phone to focus, then slide exposure down if the screen is too bright."
         },
         {
           "id": "s3",
-          "angle": "Split screen: real swing vs. on-screen result",
-          "action": "Sync swing with ball flight",
+          "angle": "SPLIT SCREEN: Film two separate clips. Clip 1: Golfer swinging (medium shot, 6 feet away). Clip 2: Screen showing the resulting ball flight.",
+          "action": "Film the swing in one clip. Film the screen result in another. You'll edit them side-by-side or back-to-back.",
           "say": "And it's accurate to within a yard.",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "For split screen: use CapCut or iMovie. Place the swing on the left, the screen on the right. Or do a quick cut between them. The key is showing cause and effect."
         },
         {
           "id": "s4",
-          "angle": "Wide: full Birdie Bus setup at event",
-          "action": "Show the full experience",
+          "angle": "WIDE SHOT: Phone horizontal, 15 feet back. Frame the full Birdie Bus setup at an event.",
+          "action": "Slow pan across the entire setup: bus, screen, guests playing, crowd watching.",
           "say": "All in a van. All at your event. Book Birdie Bus.",
-          "seconds": 4
+          "seconds": 4,
+          "videography_tip": "Golden hour lighting makes this shot pop. If you can't do golden hour, overcast days are best. Avoid harsh shadows on people's faces."
         }
       ],
       "caption": "The same technology the pros use. In a van. At your event. \ud83d\ude8c\u26f3 #trackman #golf #golftechnology #birdiebus #golfsimulator",
@@ -433,10 +401,10 @@
       ],
       "status": "idea",
       "createdBy": "hermes",
-      "notes": "Appeal to serious golfers and golf clubs. Emphasize Trackman 4 accuracy.",
+      "notes": "Appeal to serious golfers and golf clubs. Emphasize Trackman 4 accuracy. Total runtime: ~17 seconds.",
       "postId": null,
-      "createdAt": "2026-09-15T15:02:15.943892Z",
-      "updatedAt": "2026-09-15T15:02:15.943892Z"
+      "createdAt": "2026-09-15T15:08:53.425145Z",
+      "updatedAt": "2026-09-15T15:08:53.425145Z"
     }
   ]
 }
