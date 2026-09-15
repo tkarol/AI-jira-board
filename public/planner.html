@@ -21,7 +21,8 @@
       </div>
       <div class="topbar-right">
         <div class="filters" id="tabs">
-          <button class="chip active" data-tab="posts">Posts</button>
+          <button class="chip active" data-tab="calendar">Calendar</button>
+          <button class="chip" data-tab="queue">Queue</button>
           <button class="chip" data-tab="photos">Photos</button>
           <button class="chip" data-tab="accounts">Accounts</button>
         </div>
@@ -29,11 +30,32 @@
       </div>
     </header>
 
-    <!-- POSTS -->
-    <main class="board" id="posts-view"></main>
+    <!-- CALENDAR -->
+    <section class="planner-view" id="calendar-view">
+      <div class="cal-toolbar">
+        <div class="cal-nav">
+          <button class="icon-btn" id="cal-prev" aria-label="Previous month">‹</button>
+          <button class="icon-btn" id="cal-next" aria-label="Next month">›</button>
+          <button class="btn ghost small" id="cal-today">Today</button>
+        </div>
+        <h2 class="cal-title" id="cal-title"></h2>
+        <div class="cal-legend">
+          <span class="legend-dot s-needs_approval"></span> Needs approval
+          <span class="legend-dot s-scheduled"></span> Scheduled
+          <span class="legend-dot s-posted"></span> Posted
+        </div>
+      </div>
+      <div class="cal-weekdays" id="cal-weekdays"></div>
+      <div class="cal-grid" id="cal-grid"></div>
+    </section>
+
+    <!-- QUEUE -->
+    <section class="planner-view" id="queue-view" hidden>
+      <div class="queue" id="queue"></div>
+    </section>
 
     <!-- PHOTOS -->
-    <section class="panel" id="photos-view" hidden>
+    <section class="planner-view panel" id="photos-view" hidden>
       <div class="panel-head">
         <h2>Photo library</h2>
         <label class="btn primary upload-label">
@@ -46,7 +68,7 @@
     </section>
 
     <!-- ACCOUNTS -->
-    <section class="panel" id="accounts-view" hidden>
+    <section class="planner-view panel" id="accounts-view" hidden>
       <div class="panel-head"><h2>Connected accounts</h2></div>
       <p class="muted">
         Set the handle you post as. Live posting is wired up later — actual account
@@ -55,42 +77,49 @@
       <div id="accounts-list"></div>
     </section>
 
-    <!-- Compose modal -->
+    <!-- Compose / detail modal -->
     <div class="modal-backdrop" id="compose-backdrop" hidden>
-      <div class="modal wide" role="dialog" aria-modal="true">
-        <h2 class="modal-heading" id="compose-heading">New post</h2>
-
-        <label class="field-label">Post text</label>
-        <textarea id="compose-text" class="modal-description" rows="5" placeholder="Write your post…"></textarea>
-        <div class="compose-meta">
-          <span id="char-count" class="muted"></span>
-          <span id="platform-warning" class="warn"></span>
+      <div class="modal composer" role="dialog" aria-modal="true">
+        <div class="composer-head">
+          <h2 class="modal-heading" id="compose-heading">New post</h2>
+          <span class="status-pill" id="compose-status" hidden></span>
+          <button class="icon-btn close" id="compose-x" aria-label="Close">✕</button>
         </div>
 
-        <label class="field-label">Post to</label>
-        <div class="platform-picker" id="platform-picker"></div>
+        <div class="composer-body">
+          <div class="composer-form">
+            <label class="field-label">Post to</label>
+            <div class="platform-picker" id="platform-picker"></div>
 
-        <label class="field-label">Photos</label>
-        <div class="attach-strip" id="attach-strip"></div>
-        <button type="button" class="btn ghost small" id="attach-btn">+ Attach from library</button>
+            <label class="field-label">Post text</label>
+            <textarea id="compose-text" class="modal-description" rows="6" placeholder="Write your post…"></textarea>
+            <div class="compose-meta">
+              <span id="char-count" class="muted"></span>
+              <span id="platform-warning" class="warn"></span>
+            </div>
 
-        <div class="modal-row">
-          <label class="field">
-            <span class="field-label">Schedule for</span>
-            <input type="datetime-local" id="compose-schedule" />
-          </label>
+            <label class="field-label">Photos</label>
+            <div class="attach-strip" id="attach-strip"></div>
+            <button type="button" class="btn ghost small" id="attach-btn">+ Attach from library</button>
+
+            <div class="modal-row">
+              <label class="field">
+                <span class="field-label">Schedule for</span>
+                <input type="datetime-local" id="compose-schedule" />
+              </label>
+            </div>
+
+            <label class="field-label">Notes (not posted)</label>
+            <input type="text" id="compose-notes" class="text-input" placeholder="Internal note…" />
+          </div>
+
+          <div class="composer-preview">
+            <div class="preview-label">Preview</div>
+            <div id="compose-preview"></div>
+          </div>
         </div>
 
-        <label class="field-label">Notes (not posted)</label>
-        <input type="text" id="compose-notes" class="text-input" placeholder="Internal note…" />
-
-        <div class="modal-actions">
-          <button class="btn danger" id="compose-delete" hidden>Delete</button>
-          <span class="spacer"></span>
-          <button class="btn ghost" id="compose-cancel">Cancel</button>
-          <button class="btn ghost" id="compose-draft">Save draft</button>
-          <button class="btn primary" id="compose-submit">Submit for approval</button>
-        </div>
+        <div class="modal-actions" id="compose-actions"></div>
       </div>
     </div>
 
