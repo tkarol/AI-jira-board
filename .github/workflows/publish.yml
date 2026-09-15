@@ -1,0 +1,44 @@
+name: Publish due posts
+
+# Auto-scheduler for the social planner. Every 15 minutes it asks the deployed
+# app to publish any APPROVED + SCHEDULED post whose time has arrived.
+# Runs in your GitHub (free) — no Vercel Cron limits.
+#
+# Required repo secrets (Settings -> Secrets and variables -> Actions):
+#   APP_URL                    e.g. https://ai-jira-board-pearl.vercel.app
+#   PUBLISH_SECRET             the same value set as PUBLISH_SECRET in Vercel env
+#   VERCEL_PROTECTION_BYPASS   (only if Vercel Deployment Protection is ON)
+#
+# Nothing is sent unless a post is approved AND its scheduled time has passed,
+# so the approval gate still holds.
+
+on:
+  schedule:
+    - cron: '*/15 * * * *' # every 15 minutes (GitHub may delay under load)
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger publish endpoint
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          PUBLISH_SECRET: ${{ secrets.PUBLISH_SECRET }}
+          VERCEL_PROTECTION_BYPASS: ${{ secrets.VERCEL_PROTECTION_BYPASS }}
+        run: |
+          if [ -z "$APP_URL" ] || [ -z "$PUBLISH_SECRET" ]; then
+            echo "APP_URL and PUBLISH_SECRET repo secrets are required. Skipping."
+            exit 0
+          fi
+          echo "Requesting $APP_URL/api/publish"
+          code=$(curl -sS -o /tmp/out.json -w "%{http_code}" -X POST "$APP_URL/api/publish" \
+            -H "x-publish-secret: $PUBLISH_SECRET" \
+            ${VERCEL_PROTECTION_BYPASS:+-H "x-vercel-protection-bypass: $VERCEL_PROTECTION_BYPASS"} )
+          echo "HTTP $code"
+          cat /tmp/out.json || true
+          echo
+          # Don't fail the workflow on transient errors; the next run retries.
+          if [ "$code" != "200" ] && [ "$code" != "401" ]; then
+            echo "Non-200 response (will retry next run)."
+          fi

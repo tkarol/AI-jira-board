@@ -103,6 +103,7 @@ server and the deployed function behave identically.
 │   ├── planner.js        # Planner domain: posts, media, accounts, ideas, approval gate
 │   ├── store.js          # createStore(): GitHub-API backend or local-file backend
 │   ├── media.js          # Photo blobs: Vercel Blob or local ./uploads
+│   ├── publish.js        # Publishing engine (Facebook Graph API; add platforms here)
 │   ├── handlers.js       # Board request handlers (bound to a board store)
 │   ├── planner-handlers.js # Planner/media/idea request handlers (bound to a planner store)
 │   └── vercel.js         # Tiny helpers for the serverless function (readBody, ok, fail)
@@ -320,6 +321,32 @@ Blob).
 
 ---
 
+## Connecting Facebook (publishing)
+
+Facebook Page publishing is wired up (X and others are future work). To enable it:
+
+1. **Meta app:** developers.facebook.com → **My Apps → Create App → Business**.
+2. **Page token:** open the **Graph API Explorer**, select your app, grant
+   `pages_show_list`, `pages_read_engagement`, `pages_manage_posts`, then run
+   `GET /me/accounts` to read your **Page id** and Page **access token**.
+3. **Make it long-lived:** the Explorer token expires in ~1h. Use a **System User**
+   token (Business Settings → Users → System Users) for one that doesn't expire, or
+   exchange for a 60-day token.
+4. **Set env vars** on Vercel: `META_PAGE_ID`, `META_PAGE_ACCESS_TOKEN` (and
+   optionally `META_GRAPH_VERSION`). The Accounts tab then shows Facebook as
+   **Connected for posting**.
+
+**Sending:**
+- **Manual:** an approved post shows a **📣 Post now** button → `POST /api/posts/:id/publish`.
+- **Auto-schedule:** `.github/workflows/publish.yml` runs every ~15 min and calls
+  `POST /api/publish` (guarded by `PUBLISH_SECRET`) to send any approved post whose
+  scheduled time has passed. Add repo secrets `APP_URL`, `PUBLISH_SECRET`
+  (matching the Vercel env var), and — only if Vercel Deployment Protection is on —
+  `VERCEL_PROTECTION_BYPASS`.
+
+Only **approved** posts are ever sent (the approval gate holds even here). Tokens
+live only in server-side env vars — never in the repo.
+
 ## Environment variables
 
 | Variable | Required | Purpose |
@@ -331,6 +358,10 @@ Blob).
 | `GITHUB_BOARD_PATH` | optional | Path to the board file (default `board.json`). |
 | `GITHUB_PLANNER_PATH` | optional | Path to the planner file (default `planner.json`). |
 | `BLOB_READ_WRITE_TOKEN` | for photos | Vercel Blob store token (auto-injected when a Blob store is connected). Without it, uploads use local `./uploads`. |
+| `META_PAGE_ID` | for FB posting | Your Facebook Page's numeric id. |
+| `META_PAGE_ACCESS_TOKEN` | for FB posting | Long-lived Page access token (`pages_manage_posts`). See [Connecting Facebook](#connecting-facebook-publishing). |
+| `META_GRAPH_VERSION` | optional | Graph API version (default `v21.0`). |
+| `PUBLISH_SECRET` | for scheduler | Shared secret guarding `POST /api/publish`; the GitHub Actions scheduler sends it. |
 
 If `GITHUB_TOKEN`/`OWNER`/`REPO` are **all** set, the app uses the GitHub backend;
 otherwise it uses the local-file backend. Never commit real values — use `.env`
@@ -362,6 +393,8 @@ and by `server.js` in local dev. Bodies and responses are JSON.
 | `PATCH`  | `/api/posts/:id` | edit a `draft`/`needs_approval` post (cannot set approved/scheduled/posted) |
 | `DELETE` | `/api/posts/:id` | — |
 | `POST`   | `/api/posts/:id/approve` · `/revert` · `/posted` | **human** approval actions |
+| `POST`   | `/api/posts/:id/publish` | publish one approved post now (currently → Facebook) |
+| `POST`   | `/api/publish` | publish all due scheduled posts; **guarded by `PUBLISH_SECRET`** (the scheduler) |
 | `GET`    | `/api/media`     | — → `{ media: [...] }` |
 | `POST`   | `/api/media`     | `{ filename, contentType, dataBase64, width?, height?, caption? }` (base64 upload) |
 | `PATCH`  | `/api/media/:id` | `{ caption }` |
@@ -453,10 +486,12 @@ development.
 - **No auth by default.** Use Vercel Deployment Protection for privacy.
 - **Photos in Blob, not Git** — binaries bloat repos and Vercel can't write to a
   runtime filesystem. Only URLs + metadata are stored in `planner.json`.
-- **Publishing is not wired up yet** (by design). The planner/Studio plan,
-  approve, and track; actual auto-posting to platforms is a future step that
-  plugs a provider in behind server-side env vars (e.g. an aggregator like
-  Ayrshare, or per-platform APIs). Until then, "Mark posted" closes the loop.
+- **Publishing:** **Facebook Pages are wired up** (Graph API) with a manual
+  "Post now" and an auto-scheduler (GitHub Actions → `POST /api/publish`). Other
+  platforms (X, Instagram, TikTok, YouTube) are future work — add a publisher in
+  `lib/publish.js` and their tokens as server-side env vars. Only approved posts
+  are ever sent; "Mark posted" remains as a manual fallback for platforms without
+  a wired publisher.
 
 ---
 

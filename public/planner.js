@@ -255,6 +255,9 @@ function postRow(post) {
   return el;
 }
 
+const canPublish = (post) =>
+  (post.platforms || []).some((p) => data.publishing && data.publishing[p]);
+
 function postActions(post) {
   const b = (act, label, cls = 'ghost') => `<button class="btn ${cls} small" data-act="${act}">${label}</button>`;
   switch (post.status) {
@@ -262,7 +265,10 @@ function postActions(post) {
     case 'needs_approval': return b('approve', '✅ Approve', 'primary') + b('delete', 'Delete', 'danger');
     case 'approved':
     case 'scheduled':
-    case 'failed': return b('posted', '✔ Posted', 'primary') + b('revert', 'Draft') + b('delete', 'Delete', 'danger');
+    case 'failed': {
+      const pub = canPublish(post) ? b('publish', '📣 Post now', 'primary') : '';
+      return pub + b('posted', '✔ Mark posted', pub ? 'ghost' : 'primary') + b('revert', 'Draft') + b('delete', 'Delete', 'danger');
+    }
     case 'posted': return b('delete', 'Delete', 'danger');
     default: return '';
   }
@@ -282,6 +288,9 @@ async function doAction(post, act) {
       await api('POST', `/api/posts/${post.id}/revert`);
     } else if (act === 'posted') {
       await api('POST', `/api/posts/${post.id}/posted`);
+    } else if (act === 'publish') {
+      if (!confirm('Publish this post to Facebook now? This posts publicly to your Page.')) return;
+      await api('POST', `/api/posts/${post.id}/publish`);
     }
     closeComposer();
     await load();
@@ -423,7 +432,13 @@ function buildComposerActions(post) {
   if (locked) {
     // read-only: show status-appropriate actions
     if (post.status === 'approved' || post.status === 'scheduled' || post.status === 'failed') {
-      html = b('delete', 'Delete', 'danger') + '<span class="spacer"></span>' + b('revert', 'Back to draft') + b('posted', '✔ Mark posted', 'primary');
+      const pub = canPublish(post) ? b('publish', '📣 Post now', 'primary') : '';
+      html =
+        b('delete', 'Delete', 'danger') +
+        '<span class="spacer"></span>' +
+        b('revert', 'Back to draft') +
+        b('posted', '✔ Mark posted', pub ? 'ghost' : 'primary') +
+        pub;
     } else {
       html = b('delete', 'Delete', 'danger') + '<span class="spacer"></span>' + b('close', 'Close', 'ghost');
     }
@@ -612,27 +627,34 @@ function resizeImage(file) {
 
 function renderAccounts() {
   $('#accounts-list').innerHTML = data.accounts
-    .map((a) => `
+    .map((a) => {
+      const live = data.publishing && data.publishing[a.platform];
+      const status = live
+        ? '<span class="conn-badge live">● Connected for posting</span>'
+        : '<label class="toggle"><input type="checkbox" class="connected" ' + (a.connected ? 'checked' : '') + ' /> Connected</label>';
+      return `
       <div class="account-row" data-id="${a.id}">
         <span class="account-icon">${platformIcon(a.platform)}</span>
         <span class="account-name">${escapeHtml(a.displayName)}</span>
         <input class="text-input handle" placeholder="@handle" value="${escapeHtml(a.handle || '')}" />
-        <label class="toggle"><input type="checkbox" class="connected" ${a.connected ? 'checked' : ''} /> Connected</label>
-      </div>`)
+        ${status}
+      </div>`;
+    })
     .join('');
   $$('#accounts-list .account-row').forEach((row) => {
     const id = row.dataset.id;
+    const connectedEl = row.querySelector('.connected'); // absent when server-connected
     const save = async () => {
       try {
         await api('PATCH', `/api/accounts/${id}`, {
           handle: row.querySelector('.handle').value,
-          connected: row.querySelector('.connected').checked,
+          connected: connectedEl ? connectedEl.checked : undefined,
         });
         await load();
       } catch (e) { alert(e.message); }
     };
     row.querySelector('.handle').addEventListener('change', save);
-    row.querySelector('.connected').addEventListener('change', save);
+    if (connectedEl) connectedEl.addEventListener('change', save);
   });
 }
 

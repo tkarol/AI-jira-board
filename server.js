@@ -138,6 +138,15 @@ async function route(req, res, urlPath) {
     return planner.updateAccount(acctM[1], body);
   }
 
+  // --- publishing scheduler (secret-guarded) ---
+  if (req.method === 'POST' && urlPath === '/api/publish') {
+    const secret = process.env.PUBLISH_SECRET;
+    const provided =
+      req.headers['x-publish-secret'] || new URL(req.url, 'http://x').searchParams.get('secret');
+    if (!secret || provided !== secret) return { status: 401, json: { error: 'unauthorized' } };
+    return planner.publishDue();
+  }
+
   // --- content ideas (Studio) ---
   if (req.method === 'POST' && urlPath === '/api/ideas') return planner.createIdea(body);
 

@@ -72,9 +72,37 @@ function segmentsFrom(req) {
   return seg;
 }
 
+// The scheduler endpoint is secret-guarded (it triggers real outbound posts).
+function publishSecretOk(req) {
+  const secret = process.env.PUBLISH_SECRET;
+  if (!secret) return false; // no secret configured => refuse (safe default)
+  let provided = req.headers['x-publish-secret'];
+  if (!provided) {
+    try {
+      provided = new URL(req.url, 'http://x').searchParams.get('secret');
+    } catch {
+      provided = null;
+    }
+  }
+  return provided === secret;
+}
+
 module.exports = async (req, res) => {
   const seg = segmentsFrom(req);
   const method = req.method;
+
+  // POST /api/publish  -> publish all due scheduled posts (used by the cron/agent)
+  if (seg[0] === 'publish' && seg.length === 1) {
+    if (method !== 'POST') return fail(res, Object.assign(new Error('method not allowed'), { status: 405 }));
+    if (!publishSecretOk(req)) return fail(res, Object.assign(new Error('unauthorized'), { status: 401 }));
+    try {
+      ok(res, await planner.publishDue());
+    } catch (e) {
+      fail(res, e);
+    }
+    return;
+  }
+
   const body = method === 'POST' || method === 'PATCH' || method === 'PUT' ? readBody(req) : {};
   try {
     ok(res, await dispatch(seg, method, body));

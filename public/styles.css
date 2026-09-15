@@ -1201,3 +1201,7 @@ body {
 .record-done h2 { font-size: 28px; margin: 0 0 8px; }
 .record-done .muted { color: #9aa4b2; }
 .record-done-actions { display: flex; gap: 12px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+
+/* Accounts: server-side "connected for posting" badge */
+.conn-badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+.conn-badge.live { color: var(--personal); background: color-mix(in srgb, var(--personal) 15%, transparent); }

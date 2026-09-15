@@ -163,6 +163,24 @@ Commit planner changes to the **data branch** with a clear message, e.g.
 `DELETE /api/posts/:id`, `POST /api/posts/:id/{approve|revert|posted}`,
 `GET/POST /api/media`, `PATCH/DELETE /api/media/:id`, `PATCH /api/accounts/:id`.
 
+## Publishing (real posting)
+
+**Facebook Pages are wired up** (`lib/publish.js`, Graph API). Other platforms
+are not yet. Publishing does NOT weaken the approval gate:
+
+- Only a post that is already `approved`/`scheduled` can be published. The publish
+  action (`POST /api/posts/:id/publish`, or the scheduler `POST /api/publish`)
+  refuses anything still `draft`/`needs_approval`.
+- **You (the AI) must never publish on the user's behalf** unless they explicitly
+  ask for that specific post to go out now. Your job is to draft into
+  `needs_approval`; the human approves, and the human (or the scheduler they set
+  up) sends. Do not call the publish endpoints or set `status: "posted"` yourself
+  as a shortcut.
+- Facebook/social **tokens live only in server-side env vars** (`META_PAGE_ID`,
+  `META_PAGE_ACCESS_TOKEN`, `PUBLISH_SECRET`) — never in the repo. The
+  `planner.json.posts[].results` field records publish outcomes (URL or error);
+  treat it as read-only output.
+
 ---
 
 # Content Studio — short-form video ideas (`planner.json` → `ideas`)
