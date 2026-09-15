@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "My Board",
-    "version": 1
+    "version": 1,
+    "updatedAt": "2026-09-15T14:55:00.000Z"
   },
   "columns": [
     {
@@ -26,12 +27,56 @@
       "id": "t_74b75e0dfee5",
       "title": "Connect Hermes to this board",
       "description": "",
-      "column": "backlog",
+      "column": "in_progress",
       "category": "birdie_bus",
       "priority": "medium",
       "order": 0,
       "createdAt": "2026-09-15T13:48:27.140Z",
-      "updatedAt": "2026-09-15T13:48:42.589Z"
+      "updatedAt": "2026-09-15T14:55:00.000Z"
+    },
+    {
+      "id": "t_fabf245d1b33",
+      "title": "Follow up: London Bay (Gina Watters)",
+      "description": "Called 9/15, no answer. Send email today, call again 9/18.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 3,
+      "createdAt": "2026-09-15T14:55:00.000Z",
+      "updatedAt": "2026-09-15T14:55:00.000Z"
+    },
+    {
+      "id": "t_d8495b0007ca",
+      "title": "Follow up: MarineMax (Daniel Wade)",
+      "description": "Called 9/15, no answer. Send email today, call again 9/18.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 3,
+      "createdAt": "2026-09-15T14:55:00.000Z",
+      "updatedAt": "2026-09-15T14:55:00.000Z"
+    },
+    {
+      "id": "t_d1d4c07aeb60",
+      "title": "Follow up: PulteGroup (David Beznos)",
+      "description": "Called 9/15, no answer. Send email today, call again 9/18.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 3,
+      "createdAt": "2026-09-15T14:55:00.000Z",
+      "updatedAt": "2026-09-15T14:55:00.000Z"
+    },
+    {
+      "id": "t_5d5da7d94854",
+      "title": "Follow up: Gartner (Kelly Basi)",
+      "description": "Called 9/15, no answer. Send email today, call again 9/18.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 3,
+      "createdAt": "2026-09-15T14:55:00.000Z",
+      "updatedAt": "2026-09-15T14:55:00.000Z"
     }
   ]
 }
