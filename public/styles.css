@@ -168,63 +168,76 @@ body {
 /* Board */
 .board {
   display: flex;
-  gap: 14px;
-  padding: 4px 20px 24px;
+  gap: 16px;
+  padding: 8px 20px 32px;
   overflow-x: auto;
   align-items: flex-start;
   min-height: 60vh;
+  scroll-snap-type: x proximity;
 }
 
 .column {
   background: var(--column-bg);
-  border-radius: var(--radius);
-  width: 300px;
-  min-width: 300px;
+  border-radius: 14px;
+  width: 304px;
+  min-width: 304px;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 140px);
+  max-height: calc(100vh - 150px);
+  scroll-snap-align: start;
 }
 
 .column-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 14px 8px;
-  font-weight: 600;
+  padding: 14px 16px 10px;
+  font-weight: 700;
   font-size: 14px;
 }
 
 .column-count {
   color: var(--text-muted);
-  font-weight: 500;
-  font-size: 13px;
+  font-weight: 600;
+  font-size: 12px;
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 1px 9px;
+  min-width: 22px;
+  text-align: center;
 }
 
 .column-cards {
-  padding: 4px 8px 8px;
+  padding: 4px 10px 10px;
   overflow-y: auto;
   flex: 1;
-  min-height: 20px;
+  min-height: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .column-cards.drag-over {
   background: rgba(12, 102, 228, 0.08);
-  border-radius: var(--radius);
+  border-radius: 10px;
 }
 
 /* Cards */
 .card {
   background: var(--surface);
-  border-radius: 6px;
-  padding: 10px 12px;
-  margin-bottom: 8px;
+  border-radius: 10px;
+  padding: 12px 14px;
   box-shadow: var(--shadow);
-  cursor: grab;
-  border-left: 3px solid transparent;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 
-.card:active {
-  cursor: grabbing;
+@media (hover: hover) {
+  .card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+  }
 }
 
 .card.dragging {
@@ -242,9 +255,10 @@ body {
 }
 
 .card-title {
-  font-size: 14px;
+  font-size: 14.5px;
+  font-weight: 600;
   line-height: 1.4;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   word-break: break-word;
 }
 
@@ -253,6 +267,52 @@ body {
   gap: 6px;
   align-items: center;
   flex-wrap: wrap;
+}
+
+/* Quick-move buttons under each card (great on phones) */
+.move-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.move-btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
+}
+.move-btn::before {
+  content: '→';
+  opacity: 0.55;
+}
+.move-btn:hover {
+  background: var(--column-bg);
+  color: var(--text);
+}
+.move-btn.to-done {
+  color: var(--low);
+  border-color: color-mix(in srgb, var(--low) 40%, var(--border));
+}
+.move-btn.to-in_progress {
+  color: var(--medium);
+  border-color: color-mix(in srgb, var(--medium) 40%, var(--border));
+}
+.move-btn.to-done:hover {
+  background: color-mix(in srgb, var(--low) 14%, transparent);
+}
+.move-btn.to-in_progress:hover {
+  background: color-mix(in srgb, var(--medium) 14%, transparent);
 }
 
 .tag {
@@ -402,13 +462,28 @@ body {
   flex: 1;
 }
 
-@media (max-width: 500px) {
+/* On phones, stack the columns vertically and enlarge tap targets. */
+@media (max-width: 720px) {
   .topbar {
     gap: 10px;
   }
+  .board {
+    flex-direction: column;
+    overflow-x: visible;
+    padding: 8px 14px 40px;
+    gap: 14px;
+  }
   .column {
-    width: 82vw;
-    min-width: 82vw;
+    width: 100%;
+    min-width: 0;
+    max-height: none;
+  }
+  .column-cards {
+    max-height: none;
+  }
+  .move-btn {
+    padding: 8px 12px;
+    font-size: 13px;
   }
 }
 

@@ -102,15 +102,31 @@ function renderCard(task) {
   el.dataset.id = task.id;
 
   const hasDesc = task.description && task.description.trim().length > 0;
+  // One-tap move buttons for every column except the one the card is in.
+  const moveButtons = board.columns
+    .filter((c) => c.id !== task.column)
+    .map((c) => `<button class="move-btn to-${c.id}" data-move="${c.id}">${escapeHtml(c.name)}</button>`)
+    .join('');
+
   el.innerHTML = `
     <div class="card-title">${escapeHtml(task.title)}</div>
     <div class="card-meta">
       <span class="tag cat-${task.category}">${escapeHtml(categoryLabel(task.category))}</span>
       <span class="tag priority-${task.priority}">${task.priority}</span>
       ${hasDesc ? '<span class="card-desc-indicator" title="Has description">☰</span>' : ''}
-    </div>`;
+    </div>
+    ${moveButtons ? `<div class="move-row">${moveButtons}</div>` : ''}`;
 
-  el.addEventListener('click', () => openEditModal(task.id));
+  el.addEventListener('click', (e) => {
+    if (e.target.closest('[data-move]')) return; // don't open the editor when moving
+    openEditModal(task.id);
+  });
+  el.querySelectorAll('[data-move]').forEach((btn) =>
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      moveTask(task.id, btn.dataset.move);
+    })
+  );
   el.addEventListener('dragstart', (e) => {
     el.classList.add('dragging');
     e.dataTransfer.setData('text/plain', task.id);
@@ -118,6 +134,20 @@ function renderCard(task) {
   });
   el.addEventListener('dragend', () => el.classList.remove('dragging'));
   return el;
+}
+
+// Move a card to another column with one tap (optimistic, then persist).
+async function moveTask(id, columnId) {
+  const task = board.tasks.find((t) => t.id === id);
+  if (task) task.column = columnId; // optimistic
+  render();
+  try {
+    await api('PATCH', `/api/tasks/${id}`, { column: columnId });
+    await loadBoard();
+  } catch (e) {
+    alert('Could not move card: ' + e.message);
+    await loadBoard();
+  }
 }
 
 // --- drag and drop ----------------------------------------------------------
