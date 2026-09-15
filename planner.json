@@ -43,7 +43,7 @@
   "posts": [
     {
       "id": "p_example",
-      "content": "Example post — Hermes can draft these for you, then they wait here until you approve. Edit me, attach a photo, pick platforms, set a time.",
+      "content": "Example post \u2014 Hermes can draft these for you, then they wait here until you approve. Edit me, attach a photo, pick platforms, set a time.",
       "platforms": [
         "twitter"
       ],
@@ -57,14 +57,49 @@
       "results": {},
       "createdAt": "2026-09-15T00:00:00.000Z",
       "updatedAt": "2026-09-15T00:00:00.000Z"
+    },
+    {
+      "id": "p_ba1a6c8bee2d",
+      "content": "We turned a step van into a golf simulator. \ud83d\ude8c\u26f3\n\nTrackman 4. Open-air stage. Crowd-facing setup.\n\nWeddings. Corporate events. Tournaments. Your backyard.\n\nBirdie Bus is live in Southwest Florida. Book us for your next event.\n\nLink in bio.",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "mediaIds": [],
+      "scheduledAt": null,
+      "status": "needs_approval",
+      "createdBy": "hermes",
+      "notes": "Launch announcement post. Pair with reveal video if available.",
+      "approvedAt": null,
+      "postedAt": null,
+      "results": {},
+      "createdAt": "2026-09-15T15:02:15.943892Z",
+      "updatedAt": "2026-09-15T15:02:15.943892Z"
+    },
+    {
+      "id": "p_93a9dc7b611c",
+      "content": "Your wedding guests will never forget this. \ud83d\ude8c\ud83d\udc8d\u26f3\n\nBirdie Bus brings a full golf simulator to your reception. Closest-to-the-pin contests. Live leaderboard. Even the bride plays.\n\nThe wedding add-on nobody forgets. Book for your date.\n\nLink in bio.",
+      "platforms": [
+        "instagram"
+      ],
+      "mediaIds": [],
+      "scheduledAt": null,
+      "status": "needs_approval",
+      "createdBy": "hermes",
+      "notes": "Wedding-focused post. Target engaged couples and wedding planners.",
+      "approvedAt": null,
+      "postedAt": null,
+      "results": {},
+      "createdAt": "2026-09-15T15:02:15.943892Z",
+      "updatedAt": "2026-09-15T15:02:15.943892Z"
     }
   ],
   "ideas": [
     {
       "id": "idea_example",
       "title": "3 things nobody tells you",
-      "hook": "\"Nobody tells you this before you start…\"",
-      "concept": "A punchy list of 3 hard-won lessons — talking to camera with quick b-roll cutaways. This is a template: ask your AI to write real ones for you.",
+      "hook": "\"Nobody tells you this before you start\u2026\"",
+      "concept": "A punchy list of 3 hard-won lessons \u2014 talking to camera with quick b-roll cutaways. This is a template: ask your AI to write real ones for you.",
       "platforms": [
         "tiktok",
         "instagram",
@@ -74,7 +109,7 @@
         {
           "id": "s1",
           "angle": "Talking head, phone at eye level, window light on your face",
-          "action": "Deliver the hook straight to camera — confident, lean in slightly",
+          "action": "Deliver the hook straight to camera \u2014 confident, lean in slightly",
           "say": "Nobody tells you this before you start. Here are 3 things I learned the hard way.",
           "seconds": 4
         },
@@ -82,7 +117,7 @@
           "id": "s2",
           "angle": "Close-up b-roll of your hands / product / workspace",
           "action": "Show the thing while the voiceover plays over it",
-          "say": "Number one: start before you feel ready — you never will.",
+          "say": "Number one: start before you feel ready \u2014 you never will.",
           "seconds": 6
         },
         {
@@ -100,7 +135,7 @@
           "seconds": 6
         }
       ],
-      "caption": "3 things I wish I knew earlier 👇 Which one hit hardest?",
+      "caption": "3 things I wish I knew earlier \ud83d\udc47 Which one hit hardest?",
       "hashtags": [
         "#smallbusiness",
         "#lessonslearned",
@@ -112,6 +147,296 @@
       "postId": null,
       "createdAt": "2026-09-15T00:00:00.000Z",
       "updatedAt": "2026-09-15T00:00:00.000Z"
+    },
+    {
+      "id": "idea_cc6348d01a79",
+      "title": "Birdie Bus launch: The mobile golf simulator arrives",
+      "hook": "We turned a step van into a golf simulator. Here's how.",
+      "concept": "Origin story video showing the transformation from empty van to fully branded Birdie Bus with Trackman 4, drop-down stage, and crowd-facing setup. Build anticipation for the launch.",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "shots": [
+        {
+          "id": "s1",
+          "angle": "Wide shot of empty van interior, before",
+          "action": "Slow pan across empty space",
+          "say": "This was just an empty step van 6 months ago.",
+          "seconds": 3
+        },
+        {
+          "id": "s2",
+          "angle": "Time-lapse of build-out",
+          "action": "Quick cuts of construction, branding, tech install",
+          "say": "We spent months turning it into something nobody in Southwest Florida has seen.",
+          "seconds": 6
+        },
+        {
+          "id": "s3",
+          "angle": "Reveal: Trackman 4 screen lighting up",
+          "action": "Screen turns on, golf course appears",
+          "say": "Now it's a full golf simulator on wheels.",
+          "seconds": 4
+        },
+        {
+          "id": "s4",
+          "angle": "Exterior: stage dropping, crowd gathering",
+          "action": "Stage drops, people walking up",
+          "say": "And we bring it to you. Weddings, corporate events, tournaments.",
+          "seconds": 5
+        },
+        {
+          "id": "s5",
+          "angle": "Close-up: hands on club, ball flight on screen",
+          "action": "Swing, ball flies on screen",
+          "say": "Trackman 4. Real data. Real fun. Book us.",
+          "seconds": 4
+        }
+      ],
+      "caption": "From empty van to mobile golf experience. Birdie Bus is here. \ud83d\ude8c\u26f3 #golf #mobilegolf #trackman #swfl #birdiebus",
+      "hashtags": [
+        "#golf",
+        "#mobilegolf",
+        "#trackman",
+        "#swfl",
+        "#birdiebus",
+        "#golfsimulator",
+        "#capecoral",
+        "#fortmyers"
+      ],
+      "status": "idea",
+      "createdBy": "hermes",
+      "notes": "Launch announcement video. Film the actual bus reveal if possible.",
+      "postId": null,
+      "createdAt": "2026-09-15T15:02:15.943892Z",
+      "updatedAt": "2026-09-15T15:02:15.943892Z"
+    },
+    {
+      "id": "idea_8de8baa2d35e",
+      "title": "Grant Thornton Invitational sponsor activation",
+      "hook": "We're activating at the Grant Thornton Invitational. Here's what that means for your brand.",
+      "concept": "B2B-focused content targeting potential sponsors. Show the Birdie Bus setup at Tibur\u00f3n, the crowd engagement, and the branding opportunities.",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "shots": [
+        {
+          "id": "s1",
+          "angle": "Aerial/wide: Tibur\u00f3n Golf Club",
+          "action": "Establish the venue",
+          "say": "This December, the best golfers in the world are at Tibur\u00f3n.",
+          "seconds": 4
+        },
+        {
+          "id": "s2",
+          "angle": "Birdie Bus setup with sponsor branding visible",
+          "action": "Show branded bus with crowd",
+          "say": "And Birdie Bus is right in the middle of it with a branded activation.",
+          "seconds": 5
+        },
+        {
+          "id": "s3",
+          "angle": "Close-up: live leaderboard, guest playing",
+          "action": "Guest swings, leaderboard updates",
+          "say": "Your logo on the leaderboard. Your brand in front of an affluent, engaged crowd.",
+          "seconds": 5
+        },
+        {
+          "id": "s4",
+          "angle": "Talking head: direct to camera",
+          "action": "Speak to sponsors",
+          "say": "We have 3 sponsorship tiers left. DM me or check the link in bio.",
+          "seconds": 4
+        }
+      ],
+      "caption": "December 7-13. Grant Thornton Invitational. Your brand on the Birdie Bus. Limited spots. #golfsponsor #sportmarketing #naplesflorida #grantthorntoninvitational",
+      "hashtags": [
+        "#golfsponsor",
+        "#sportmarketing",
+        "#naplesflorida",
+        "#grantthorntoninvitational",
+        "#birdiebus",
+        "#golf"
+      ],
+      "status": "idea",
+      "createdBy": "hermes",
+      "notes": "Target sponsors: Naples Jet Center, STOCK, Herc, Publix, Elite Jets. Post during tournament week if possible.",
+      "postId": null,
+      "createdAt": "2026-09-15T15:02:15.943892Z",
+      "updatedAt": "2026-09-15T15:02:15.943892Z"
+    },
+    {
+      "id": "idea_5c98605b7efe",
+      "title": "Wedding venue activation: The coolest reception add-on",
+      "hook": "Your wedding guests will never forget this.",
+      "concept": "Target wedding planners and engaged couples. Show Birdie Bus at a wedding reception with guests playing closest-to-the-pin, bride/groom swinging, crowd cheering.",
+      "platforms": [
+        "instagram",
+        "tiktok"
+      ],
+      "shots": [
+        {
+          "id": "s1",
+          "angle": "Bride and groom walking up to Birdie Bus",
+          "action": "They approach, curious",
+          "say": "You spent months planning the perfect wedding.",
+          "seconds": 3
+        },
+        {
+          "id": "s2",
+          "angle": "Guests lining up, laughing, playing",
+          "action": "Montage of guests swinging",
+          "say": "But your guests will remember this.",
+          "seconds": 5
+        },
+        {
+          "id": "s3",
+          "angle": "Bride swings in wedding dress",
+          "action": "She swings, crowd cheers",
+          "say": "Even the bride plays.",
+          "seconds": 4
+        },
+        {
+          "id": "s4",
+          "angle": "Close-up: ring shot with golf club",
+          "action": "Detail shot",
+          "say": "Birdie Bus. The wedding add-on nobody forgets. Book for your date.",
+          "seconds": 4
+        }
+      ],
+      "caption": "The wedding add-on your guests will actually talk about. \ud83d\ude8c\ud83d\udc8d\u26f3 #wedding #weddingreception #birdiebus #golfwedding #swflwedding",
+      "hashtags": [
+        "#wedding",
+        "#weddingreception",
+        "#birdiebus",
+        "#golfwedding",
+        "#swflwedding",
+        "#capecoralwedding",
+        "#fortmyerswedding"
+      ],
+      "status": "idea",
+      "createdBy": "hermes",
+      "notes": "Wedding venues are priority #1. Target: Heitman House, Burroughs Home, other SWFL venues.",
+      "postId": null,
+      "createdAt": "2026-09-15T15:02:15.943892Z",
+      "updatedAt": "2026-09-15T15:02:15.943892Z"
+    },
+    {
+      "id": "idea_e2ff93e8ba94",
+      "title": "Corporate event: Team building that doesn't suck",
+      "hook": "Your team building event doesn't have to be awkward.",
+      "concept": "Target corporate event planners. Show a company happy hour with Birdie Bus, coworkers competing on closest-to-the-pin, boss playing, team bonding.",
+      "platforms": [
+        "instagram",
+        "facebook",
+        "linkedin"
+      ],
+      "shots": [
+        {
+          "id": "s1",
+          "angle": "Office workers looking bored at typical event",
+          "action": "Yawn, checking phones",
+          "say": "Another trust fall? Another awkward icebreaker?",
+          "seconds": 4
+        },
+        {
+          "id": "s2",
+          "angle": "Cut to: Birdie Bus with team competing",
+          "action": "High-fives, cheering, competition",
+          "say": "Or you could do this.",
+          "seconds": 3
+        },
+        {
+          "id": "s3",
+          "angle": "Close-up: leaderboard, names going up",
+          "action": "Leaderboard updates",
+          "say": "Real competition. Real data. Real fun.",
+          "seconds": 4
+        },
+        {
+          "id": "s4",
+          "angle": "Group photo with Birdie Bus",
+          "action": "Team posing, smiling",
+          "say": "Birdie Bus. Corporate events your team will actually want to attend. Book now.",
+          "seconds": 5
+        }
+      ],
+      "caption": "Team building that doesn't feel like a trust fall. \ud83d\ude8c\u26f3 #corporateevents #teambuilding #birdiebus #golf #swflbusiness",
+      "hashtags": [
+        "#corporateevents",
+        "#teambuilding",
+        "#birdiebus",
+        "#golf",
+        "#swflbusiness",
+        "#capecoral",
+        "#fortmyers"
+      ],
+      "status": "idea",
+      "createdBy": "hermes",
+      "notes": "Target: corporate event planners, HR directors, office managers in SWFL.",
+      "postId": null,
+      "createdAt": "2026-09-15T15:02:15.943892Z",
+      "updatedAt": "2026-09-15T15:02:15.943892Z"
+    },
+    {
+      "id": "idea_c325f64c95c9",
+      "title": "Behind the scenes: Trackman 4 setup",
+      "hook": "This is $25,000 of golf technology in a van.",
+      "concept": "Tech-focused content for golf enthusiasts. Show the Trackman 4 setup, the screen, the accuracy, the data. Appeal to serious golfers.",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "shots": [
+        {
+          "id": "s1",
+          "angle": "Close-up: Trackman 4 unit",
+          "action": "Slow pan across device",
+          "say": "This is the same technology the pros use.",
+          "seconds": 4
+        },
+        {
+          "id": "s2",
+          "angle": "Screen: ball flight data, spin rate, carry distance",
+          "action": "Show data points",
+          "say": "Ball speed. Spin rate. Carry distance. Launch angle.",
+          "seconds": 5
+        },
+        {
+          "id": "s3",
+          "angle": "Split screen: real swing vs. on-screen result",
+          "action": "Sync swing with ball flight",
+          "say": "And it's accurate to within a yard.",
+          "seconds": 4
+        },
+        {
+          "id": "s4",
+          "angle": "Wide: full Birdie Bus setup at event",
+          "action": "Show the full experience",
+          "say": "All in a van. All at your event. Book Birdie Bus.",
+          "seconds": 4
+        }
+      ],
+      "caption": "The same technology the pros use. In a van. At your event. \ud83d\ude8c\u26f3 #trackman #golf #golftechnology #birdiebus #golfsimulator",
+      "hashtags": [
+        "#trackman",
+        "#golf",
+        "#golftechnology",
+        "#birdiebus",
+        "#golfsimulator",
+        "#golfdata",
+        "#swflgolf"
+      ],
+      "status": "idea",
+      "createdBy": "hermes",
+      "notes": "Appeal to serious golfers and golf clubs. Emphasize Trackman 4 accuracy.",
+      "postId": null,
+      "createdAt": "2026-09-15T15:02:15.943892Z",
+      "updatedAt": "2026-09-15T15:02:15.943892Z"
     }
   ]
 }
