@@ -4,10 +4,22 @@
     "version": 1
   },
   "columns": [
-    { "id": "backlog", "name": "Backlog" },
-    { "id": "todo", "name": "To Do" },
-    { "id": "in_progress", "name": "In Progress" },
-    { "id": "done", "name": "Done" }
+    {
+      "id": "backlog",
+      "name": "Backlog"
+    },
+    {
+      "id": "todo",
+      "name": "To Do"
+    },
+    {
+      "id": "in_progress",
+      "name": "In Progress"
+    },
+    {
+      "id": "done",
+      "name": "Done"
+    }
   ],
   "tasks": [
     {
@@ -17,17 +29,6 @@
       "column": "todo",
       "category": "personal",
       "priority": "medium",
-      "order": 0,
-      "createdAt": "2026-09-15T00:00:00.000Z",
-      "updatedAt": "2026-09-15T00:00:00.000Z"
-    },
-    {
-      "id": "t_sample_business",
-      "title": "Example: a Birdie Bus task",
-      "description": "Tag cards by category (Birdie Bus, Booz Allen, Personal) so you can filter them. Set a priority to sort what matters.",
-      "column": "backlog",
-      "category": "birdie_bus",
-      "priority": "high",
       "order": 0,
       "createdAt": "2026-09-15T00:00:00.000Z",
       "updatedAt": "2026-09-15T00:00:00.000Z"
