@@ -99,6 +99,17 @@
       "order": 4,
       "createdAt": "2026-09-15T22:01:46.000Z",
       "updatedAt": "2026-09-15T22:01:46.000Z"
+    },
+    {
+      "id": "t_486b97637162",
+      "title": "Confirm Stix club shipment + schedule shoot with Ethan Coyne",
+      "description": "Shipping address sent to Evan Singer and Gabe Coyne 9/16. Confirm clubs shipped, then lock event date with Ethan.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 5,
+      "createdAt": "2026-09-16T22:01:44.693Z",
+      "updatedAt": "2026-09-16T22:01:44.693Z"
     }
   ]
 }
