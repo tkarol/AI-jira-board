@@ -110,6 +110,28 @@
       "order": 5,
       "createdAt": "2026-09-16T22:01:44.693Z",
       "updatedAt": "2026-09-16T22:01:44.693Z"
+    },
+    {
+      "id": "t_9a1c4e",
+      "title": "URGENT: Pay Progressive insurance premium (policy 878258306) - cancellation eff 10/10/26",
+      "description": "IOA (Michelle Dougherty) emailed 9/17: cancellation notice for non-payment. Reinstatement not guaranteed. Bill + cancel notice PDFs in inbox.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 6,
+      "createdAt": "2026-09-17T22:01:42.000Z",
+      "updatedAt": "2026-09-17T22:01:42.000Z"
+    },
+    {
+      "id": "t_7b2d5f",
+      "title": "Anheuser-Busch: route Grant Thornton sponsorship ask to local distributor",
+      "description": "A-B Bud Central replied 9/17 (case 03154565): national defers to local wholesalers. Find SWFL distributor and pitch Grant Thornton Invitational sponsorship.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 7,
+      "createdAt": "2026-09-17T22:01:42.000Z",
+      "updatedAt": "2026-09-17T22:01:42.000Z"
     }
   ]
 }
