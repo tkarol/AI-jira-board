@@ -132,6 +132,17 @@
       "order": 7,
       "createdAt": "2026-09-17T22:01:42.000Z",
       "updatedAt": "2026-09-17T22:01:42.000Z"
+    },
+    {
+      "id": "t_b19534",
+      "title": "Reply to Jake Lenardo (On Deck Golf) with padding dimensions",
+      "description": "Jake replied 9/18 asking for dimensions to complete the custom padding quote.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "medium",
+      "order": 8,
+      "createdAt": "2026-09-18T22:01:12.176Z",
+      "updatedAt": "2026-09-18T22:01:12.176Z"
     }
   ]
 }
