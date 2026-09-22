@@ -143,6 +143,17 @@
       "order": 8,
       "createdAt": "2026-09-18T22:01:12.176Z",
       "updatedAt": "2026-09-18T22:01:12.176Z"
+    },
+    {
+      "id": "t_a1c922",
+      "title": "Follow up: Vidanta (Alicia Mendez)",
+      "description": "Sponsor pitch sent 9/22 for GT Invitational Naples Dec 7-13. Follow up 9/25 if no reply.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 3,
+      "updatedAt": "2026-09-22T22:01:42.000Z",
+      "createdAt": "2026-09-22T22:01:42.000Z"
     }
   ]
 }
