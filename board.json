@@ -154,6 +154,17 @@
       "order": 3,
       "updatedAt": "2026-09-22T22:01:42.000Z",
       "createdAt": "2026-09-22T22:01:42.000Z"
+    },
+    {
+      "id": "t_3e7f2a",
+      "title": "Follow up: Liana LeRose (NCHMD) - Dec 19 corporate event",
+      "description": "Hot inbound via Google Ads 9/24. Called same day, very interested. Quote sent 9/24: $1800/4hr special for Dec 19, 6-10pm at Celebration Park, 200+ people. Decision maker reviewing. Follow up 9/27.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 9,
+      "createdAt": "2026-09-24T23:00:00.000Z",
+      "updatedAt": "2026-09-24T23:00:00.000Z"
     }
   ]
 }
