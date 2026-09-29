@@ -158,13 +158,35 @@
     {
       "id": "t_3e7f2a",
       "title": "Follow up: Liana LeRose (NCHMD) - Dec 19 corporate event",
-      "description": "Hot inbound via Google Ads 9/24. Called same day, very interested. Quote sent 9/24: $1800/4hr special for Dec 19, 6-10pm at Celebration Park, 200+ people. Decision maker reviewing. Follow up 9/27.",
-      "column": "todo",
+      "description": "Follow-up sent 9/29. Liana replied: still doing site visits, committee decides next week, will advise after.",
+      "column": "done",
       "category": "birdie_bus",
       "priority": "high",
       "order": 9,
       "createdAt": "2026-09-24T23:00:00.000Z",
-      "updatedAt": "2026-09-24T23:00:00.000Z"
+      "updatedAt": "2026-09-29T22:30:00.000Z"
+    },
+    {
+      "id": "t_c4d8e1",
+      "title": "Call Marty Swain re: recurring Venice showcase events",
+      "description": "Marty replied 9/29: wants Birdie Bus at multiple luxury home showcase events in Venice golf communities, Sat/Sun afternoons in October. $1800 rate above his budget; he referenced an advertised lower rate. Asked Tyler to call his cell 606-585-8900.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 10,
+      "createdAt": "2026-09-29T22:30:00.000Z",
+      "updatedAt": "2026-09-29T22:30:00.000Z"
+    },
+    {
+      "id": "t_f5a2b7",
+      "title": "Follow up: Liana LeRose committee decision (week of Oct 5)",
+      "description": "Committee meets week of Oct 5 to pick venue for Dec 19 event. Liana will advise after. Quote ($1800/4hr) already sent; CRM follow-up auto-set 10/2 but real decision lands next week.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 11,
+      "createdAt": "2026-09-29T22:30:00.000Z",
+      "updatedAt": "2026-09-29T22:30:00.000Z"
     }
   ]
 }
