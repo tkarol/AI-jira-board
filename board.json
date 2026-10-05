@@ -187,6 +187,28 @@
       "order": 11,
       "createdAt": "2026-09-29T22:30:00.000Z",
       "updatedAt": "2026-09-29T22:30:00.000Z"
+    },
+    {
+      "id": "t_fpl1005",
+      "title": "FPL corporate event Wed Oct 7 (Justin Berning)",
+      "description": "Quote BB-2026-0034 sent 10/5 with deposit link. Confirm deposit received before marking Booked. Still need: venue address, competition format (closest to pin / long drive).",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "urgent",
+      "order": 12,
+      "createdAt": "2026-10-05T22:00:00.000Z",
+      "updatedAt": "2026-10-05T22:00:00.000Z"
+    },
+    {
+      "id": "t_iheart1005",
+      "title": "Prep for iHeartMedia call (Kristen Lewis)",
+      "description": "Kristen sent a Teams meeting invite 10/5. Confirm meeting time from invite.ics and prep Grant Thornton sponsorship pitch.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 13,
+      "createdAt": "2026-10-05T22:00:00.000Z",
+      "updatedAt": "2026-10-05T22:00:00.000Z"
     }
   ]
 }
