@@ -191,24 +191,37 @@
     {
       "id": "t_fpl1005",
       "title": "FPL corporate event Wed Oct 7 (Justin Berning)",
-      "description": "Quote BB-2026-0034 sent 10/5 with deposit link. Confirm deposit received before marking Booked. Still need: venue address, competition format (closest to pin / long drive).",
+      "description": "PAID IN FULL $1,917 BB-2026-0034 on 10/6 (deposit 10/5). Still need: venue address, competition format (closest to pin / long drive). Event Wed Oct 7.",
       "column": "todo",
       "category": "birdie_bus",
-      "priority": "urgent",
+      "priority": "high",
       "order": 12,
       "createdAt": "2026-10-05T22:00:00.000Z",
-      "updatedAt": "2026-10-05T22:00:00.000Z"
+      "updatedAt": "2026-10-06T22:03:57.153834Z"
     },
     {
       "id": "t_iheart1005",
       "title": "Prep for iHeartMedia call (Kristen Lewis)",
-      "description": "Kristen sent a Teams meeting invite 10/5. Confirm meeting time from invite.ics and prep Grant Thornton sponsorship pitch.",
-      "column": "todo",
+      "description": "Kristen sent a Teams meeting invite 10/5. Confirm meeting time from invite.ics and prep Grant Thornton sponsorship pitch. | DONE 10/6: call happened; Kristen emailed thanks, wants GT Invitational event details.",
+      "column": "done",
       "category": "birdie_bus",
       "priority": "high",
       "order": 13,
       "createdAt": "2026-10-05T22:00:00.000Z",
-      "updatedAt": "2026-10-05T22:00:00.000Z"
+      "updatedAt": "2026-10-06T22:03:57.153834Z",
+      "status": "done"
+    },
+    {
+      "id": "t_iheart1006",
+      "title": "Send GT Invitational (Naples Dec) event details to Kristen Lewis, iHeartMedia",
+      "description": "Per Kristen email 10/6 after call: send event details on PGA event in Naples. Bill to follow re holiday party + trade opportunities.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 13,
+      "status": "todo",
+      "createdAt": "2026-10-06T22:03:57.153834Z",
+      "updatedAt": "2026-10-06T22:03:57.153834Z"
     }
   ]
 }
