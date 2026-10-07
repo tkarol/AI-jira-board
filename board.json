@@ -24,6 +24,17 @@
   ],
   "tasks": [
     {
+      "id": "t_billames0710",
+      "title": "Reply to Bill Ames (iHeartMedia) trade proposal",
+      "description": "Bill emailed 10/7 proposing a trade: 2 four-hour events in exchange for media. He needs a cost to draft a trade agreement. Flexible on dates. Logged in HubSpot.",
+      "column": "todo",
+      "category": "birdie_bus",
+      "priority": "high",
+      "order": 1,
+      "createdAt": "2026-10-07T22:00:00.000Z",
+      "updatedAt": "2026-10-07T22:00:00.000Z"
+    },
+    {
       "id": "t_74b75e0dfee5",
       "title": "Connect Hermes to this board",
       "description": "",
