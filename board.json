@@ -202,8 +202,8 @@
     {
       "id": "t_fpl1005",
       "title": "FPL corporate event Wed Oct 7 (Justin Berning)",
-      "description": "PAID IN FULL $1,917 BB-2026-0034 on 10/6 (deposit 10/5). Still need: venue address, competition format (closest to pin / long drive). Event Wed Oct 7.",
-      "column": "todo",
+      "description": "PAID IN FULL $1,917 BB-2026-0034. Event completed Wed Oct 7.",
+      "column": "done",
       "category": "birdie_bus",
       "priority": "high",
       "order": 12,
